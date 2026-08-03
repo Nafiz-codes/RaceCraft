@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RACECRAFT | Design System Handbook</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#3b383d",
+                        "background": "#06070a",
+                        "on-primary-fixed-variant": "#4d3d76",
+                        "tertiary": "#f1e488",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "telemetry-brake": "#f43f5e",
+                        "secondary": "#7bd0ff",
+                        "on-error": "#690005",
+                        "tertiary-container": "#d4c86f",
+                        "surface-container-low": "#1c1b1f",
+                        "surface-container-highest": "#363438",
+                        "on-primary-fixed": "#210f48",
+                        "on-tertiary-fixed-variant": "#4f4800",
+                        "inverse-surface": "#e6e1e7",
+                        "on-secondary-fixed": "#001e2c",
+                        "primary-fixed": "#e9ddff",
+                        "surface-container": "#211f23",
+                        "on-tertiary-container": "#5c5301",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#665590",
+                        "surface-container-lowest": "#0f0e11",
+                        "on-background": "#e6e1e7",
+                        "on-primary": "#37265e",
+                        "on-secondary-container": "#00374d",
+                        "on-surface-variant": "#cac4d0",
+                        "primary-container": "#d0bcff",
+                        "surface-variant": "#363438",
+                        "surface-container-high": "#2b292d",
+                        "error-container": "#93000a",
+                        "telemetry-throttle": "#10b981",
+                        "telemetry-drs": "#fbbf24",
+                        "surface": "#11131a",
+                        "on-primary-container": "#594983",
+                        "on-tertiary": "#363100",
+                        "primary": "#e9ddff",
+                        "outline": "#948f9a",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#00a6e0",
+                        "surface-dim": "#141317",
+                        "primary-fixed-dim": "#d0bcff",
+                        "inverse-on-surface": "#323034",
+                        "secondary-fixed": "#c4e7ff",
+                        "outline-variant": "#49454f",
+                        "on-surface": "#e6e1e7",
+                        "tertiary-fixed-dim": "#d4c86f",
+                        "tertiary-fixed": "#f1e588",
+                        "surface-tint": "#d0bcff",
+                        "on-secondary": "#00354a",
+                        "on-tertiary-fixed": "#201c00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "component-padding": "12px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "section-gap": "64px",
+                        "container-margin": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "data-display": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["IBM Plex Sans"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-display": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #06070a;
+            color: #e6e1e7;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .glass-panel {
+            background: rgba(15, 13, 21, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(73, 69, 79, 0.2);
+        }
+        .nav-active {
+            box-shadow: inset -2px 0 0 #e9ddff;
+        }
+        .primary-glow:hover {
+            box-shadow: 0 0 20px rgba(208, 188, 255, 0.4);
+        }
+        section { scroll-margin-top: 80px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #06070a; }
+        ::-webkit-scrollbar-thumb { background: #363438; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- SideNavBar (Predicted Component) -->
+<aside class="fixed left-0 top-0 h-screen w-[280px] bg-surface-container-lowest flex flex-col py-spacing-gutter border-r border-outline-variant/10 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface">RACECRAFT</h1>
+<p class="font-label-sm text-label-sm text-outline opacity-70">DESIGN HANDBOOK V1.0.4</p>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<div class="px-4 mb-4 text-[10px] uppercase tracking-widest text-outline font-bold opacity-50">Identity</div>
+<a class="flex items-center gap-4 bg-primary-container/10 text-primary border-r-2 border-primary px-4 py-3 transition-all duration-100 ease-in-out nav-link" href="#principles">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md">Principles</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#colors">
+<span class="material-symbols-outlined">palette</span>
+<span class="font-label-md text-label-md">Color System</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#typography">
+<span class="material-symbols-outlined">text_fields</span>
+<span class="font-label-md text-label-md">Typography</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#spacing">
+<span class="material-symbols-outlined">grid_4x4</span>
+<span class="font-label-md text-label-md">Grid &amp; Spacing</span>
+</a>
+<div class="px-4 mt-8 mb-4 text-[10px] uppercase tracking-widest text-outline font-bold opacity-50">Components</div>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#elevation">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-md text-label-md">Elevation</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#ui-elements">
+<span class="material-symbols-outlined">widgets</span>
+<span class="font-label-md text-label-md">UI Elements</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#charts">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-md text-label-md">Chart Standards</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#motion">
+<span class="material-symbols-outlined">motion_photos_on</span>
+<span class="font-label-md text-label-md">Motion</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors nav-link" href="#accessibility">
+<span class="material-symbols-outlined">accessibility_new</span>
+<span class="font-label-md text-label-md">Accessibility</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-4 space-y-2">
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-2 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<button class="w-full py-3 bg-surface-container-highest border border-outline-variant/20 font-label-md text-label-md tracking-widest hover:bg-surface-container-high transition-all">
+                DOWNLOAD KIT
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] min-h-screen">
+<!-- TopAppBar (Predicted Component) -->
+<header class="flex justify-between items-center h-16 w-full px-spacing-container-margin sticky top-0 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 z-40">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md text-primary font-bold">HANDBOOK</span>
+<nav class="hidden lg:flex gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Latest</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-all" href="#">v2024.1</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-all" href="#">Changelog</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline scale-75">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Search tokens..." type="text"/>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-all">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-all">wifi_tethering</span>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 font-label-md text-label-md rounded-full font-bold hover:opacity-90">GO LIVE</button>
+</div>
+</header>
+<!-- Content Sections -->
+<div class="max-w-6xl mx-auto px-spacing-container-margin py-12 space-y-32">
+<!-- Hero -->
+<section class="relative h-[60vh] flex flex-col justify-center overflow-hidden border border-outline-variant/20 rounded-xl px-12 bg-surface-container-lowest">
+
+<div class="relative z-10 max-w-2xl">
+<span class="font-label-md text-label-md text-primary tracking-[0.3em] uppercase mb-4 block">Engineered for Velocity</span>
+<h2 class="font-headline-lg text-[64px] leading-tight font-extrabold tracking-tighter mb-6">Precision Design Protocol</h2>
+<p class="font-body-md text-lg text-on-surface-variant leading-relaxed mb-8">
+                        The RaceCraft Design System is a comprehensive technical framework for motorsport engineering interfaces. Built for high-density data environments where milliseconds define the edge of performance.
+                    </p>
+<div class="flex gap-4">
+<button class="bg-primary-container text-on-primary-container px-8 py-3 font-label-md text-label-md rounded-lg font-bold primary-glow transition-all">GET STARTED</button>
+<button class="border border-outline-variant/30 text-on-surface px-8 py-3 font-label-md text-label-md rounded-lg font-bold hover:bg-surface-container-high transition-all">VIEW REPO</button>
+</div>
+</div>
+</section>
+<!-- Principles -->
+<section class="space-y-12" id="principles">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">DESIGN PRINCIPLES</h3>
+<p class="text-on-surface-variant">Core tenets that govern every pixel of the RaceCraft ecosystem.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl space-y-4 group hover:border-primary/50 transition-all">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">settings_input_component</span>
+</div>
+<h4 class="font-headline-md text-headline-md uppercase">Engineering First</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Functionality dictates form. We prioritize data fidelity and interaction speed over aesthetic decoration. If an element doesn't aid engineering insight, it's removed.</p>
+</div>
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl space-y-4 group hover:border-primary/50 transition-all">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<h4 class="font-headline-md text-headline-md uppercase">Motion with Purpose</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Animations are functional tools, not flourishes. Use linear easings and rapid durations to reflect the high-frequency nature of telemetry streams.</p>
+</div>
+<div class="p-8 bg-surface-container border border-outline-variant/10 rounded-xl space-y-4 group hover:border-primary/50 transition-all">
+<div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<h4 class="font-headline-md text-headline-md uppercase">Clarity Over Complexity</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">In high-stress pit lane environments, cognitive load is our enemy. We use clear visual hierarchies and monospaced data for instant legibility.</p>
+</div>
+</div>
+</section>
+<!-- Color Palette -->
+<section class="space-y-12" id="colors">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">COLOR SYSTEM</h3>
+<p class="text-on-surface-variant">A palette optimized for low-light engineering bays and OLED performance.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+<div class="space-y-2">
+<div class="h-32 bg-background border border-outline-variant/30 rounded-xl flex items-end p-4">
+<span class="font-label-sm text-label-sm text-outline">#06070A</span>
+</div>
+<p class="font-label-md text-label-md font-bold">Background</p>
+</div>
+<div class="space-y-2">
+<div class="h-32 bg-surface border border-outline-variant/30 rounded-xl flex items-end p-4">
+<span class="font-label-sm text-label-sm text-outline">#11131A</span>
+</div>
+<p class="font-label-md text-label-md font-bold">Surface</p>
+</div>
+<div class="space-y-2">
+<div class="h-32 bg-primary border border-outline-variant/30 rounded-xl flex items-end p-4">
+<span class="font-label-sm text-label-sm text-on-primary">#E9DDFF</span>
+</div>
+<p class="font-label-md text-label-md font-bold">Primary (Accent)</p>
+</div>
+<div class="space-y-2">
+<div class="h-32 bg-secondary border border-outline-variant/30 rounded-xl flex items-end p-4">
+<span class="font-label-sm text-label-sm text-on-secondary">#7BD0FF</span>
+</div>
+<p class="font-label-md text-label-md font-bold">Telemetry (Throttle)</p>
+</div>
+<div class="space-y-2">
+<div class="h-32 bg-telemetry-brake border border-outline-variant/30 rounded-xl flex items-end p-4">
+<span class="font-label-sm text-label-sm text-on-error">#F43F5E</span>
+</div>
+<p class="font-label-md text-label-md font-bold">Brake / Error</p>
+</div>
+</div>
+</section>
+<!-- Typography & Content -->
+<section class="space-y-12" id="typography">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">TYPOGRAPHY</h3>
+<p class="text-on-surface-variant">The technical trifecta of Inter, IBM Plex, and JetBrains Mono.</p>
+</div>
+<div class="glass-panel p-12 rounded-2xl border border-outline-variant/20 space-y-16">
+<!-- Headline -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<span class="font-label-sm text-label-sm text-primary uppercase">Inter (UI Headlines)</span>
+<p class="text-xs text-outline mt-2">Weight: 700 / Tracking: -0.02em</p>
+</div>
+<div class="col-span-2">
+<h2 class="font-headline-lg text-[48px] leading-tight font-bold tracking-tighter">Fastest Lap: 1:21.034</h2>
+</div>
+</div>
+<hr class="border-outline-variant/10"/>
+<!-- Data Display -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<span class="font-label-sm text-label-sm text-secondary uppercase">JetBrains Mono (Data)</span>
+<p class="text-xs text-outline mt-2">Weight: 500 / Tabular Figures</p>
+</div>
+<div class="col-span-2 flex flex-col gap-4">
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="font-label-md text-label-md uppercase opacity-50">ENGINE_RPM</span>
+<span class="font-data-display text-data-display">12,450.82</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="font-label-md text-label-md uppercase opacity-50">G_LATERAL</span>
+<span class="font-data-display text-data-display">5.42 G</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/10"/>
+<!-- Body Text -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">IBM Plex Sans (Body)</span>
+<p class="text-xs text-outline mt-2">Weight: 400 / Leading: 1.6</p>
+</div>
+<div class="col-span-2">
+<p class="font-body-md text-on-surface-variant leading-relaxed max-w-xl">
+                                Documentation and explanatory text uses IBM Plex Sans to ensure high readability for long-form content. This serif-free typeface maintains the technical aesthetic while providing better contrast for descriptive paragraphs compared to condensed UI fonts.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Spacing & Elevation -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-16" id="spacing">
+<div class="space-y-8">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">SPACING &amp; GRID</h3>
+<p class="text-on-surface-variant">The 4px atomic unit system.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+<div class="flex flex-wrap gap-4 items-end">
+<div class="w-1 h-1 bg-primary" title="1u"></div>
+<div class="w-2 h-2 bg-primary" title="2u"></div>
+<div class="w-4 h-4 bg-primary" title="4u"></div>
+<div class="w-8 h-8 bg-primary" title="8u"></div>
+<div class="w-12 h-12 bg-primary" title="12u"></div>
+<div class="w-16 h-16 bg-primary" title="16u"></div>
+</div>
+<div class="mt-8 space-y-2 font-label-md text-label-md text-on-surface-variant">
+<p class="flex justify-between"><span class="opacity-50">Unit Base</span><span>4px</span></p>
+<p class="flex justify-between"><span class="opacity-50">Padding (S)</span><span>12px (3u)</span></p>
+<p class="flex justify-between"><span class="opacity-50">Gutter</span><span>16px (4u)</span></p>
+<p class="flex justify-between"><span class="opacity-50">Section Gap</span><span>64px (16u)</span></p>
+</div>
+</div>
+</div>
+<div class="space-y-8" id="elevation">
+<div class="border-l-4 border-secondary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">ELEVATION</h3>
+<p class="text-on-surface-variant">Hierarchy via Luminance and Blur.</p>
+</div>
+<div class="space-y-4">
+<div class="p-6 bg-background border border-outline-variant/10 rounded-lg">
+<span class="font-label-sm text-label-sm text-outline uppercase">L0: Background (#06070A)</span>
+</div>
+<div class="p-6 bg-surface-container border border-outline-variant/10 rounded-lg">
+<span class="font-label-sm text-label-sm text-outline uppercase">L1: Panels (#0F0D15)</span>
+</div>
+<div class="p-6 glass-panel rounded-lg shadow-2xl">
+<span class="font-label-sm text-label-sm text-primary uppercase">L2: Floating / Modal (Glass + 12px Blur)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- UI Elements Bento -->
+<section class="space-y-12" id="ui-elements">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">UI COMPONENTS</h3>
+<p class="text-on-surface-variant">The fundamental building blocks of the engineering dashboard.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Buttons -->
+<div class="md:col-span-2 glass-panel p-8 rounded-2xl flex flex-col justify-between min-h-[300px]">
+<h4 class="font-label-sm text-label-sm text-outline uppercase mb-8">Interaction: Buttons</h4>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-container text-on-primary-container px-6 py-3 font-label-md text-label-md rounded-full font-bold primary-glow transition-all">PRIMARY ACTION</button>
+<button class="bg-surface-container-highest border border-outline-variant/30 px-6 py-3 font-label-md text-label-md rounded-full font-bold hover:bg-surface-container-high transition-all">SECONDARY</button>
+<button class="text-primary font-label-md text-label-md flex items-center gap-2 px-2">
+<span class="material-symbols-outlined">settings</span> SYSTEM SETTINGS
+                            </button>
+</div>
+<div class="mt-8 text-xs text-outline leading-relaxed italic">
+                            * Primary buttons use a high-intensity lavender glow (20px blur) to stand out in dark environments.
+                        </div>
+</div>
+<!-- Cards -->
+<div class="md:col-span-2 glass-panel p-8 rounded-2xl">
+<h4 class="font-label-sm text-label-sm text-outline uppercase mb-6">Component: Data Card</h4>
+<div class="border border-outline-variant/20 rounded-lg bg-surface-container-lowest overflow-hidden">
+<div class="bg-surface-container-high px-4 py-2 border-b border-outline-variant/20 flex justify-between items-center">
+<span class="font-label-sm text-label-sm">TELEMETRY_STREAM</span>
+<span class="w-2 h-2 rounded-full bg-telemetry-throttle animate-pulse"></span>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex justify-between">
+<span class="text-on-surface-variant text-xs uppercase">Oil Temp</span>
+<span class="font-data-display text-primary">102.4°C</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-3/4"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Inputs -->
+<div class="md:col-span-1 glass-panel p-6 rounded-2xl space-y-4">
+<h4 class="font-label-sm text-label-sm text-outline uppercase">Input Fields</h4>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="font-label-sm text-[8px] uppercase text-outline">Lap Selection</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded px-3 py-2 text-xs focus:ring-1 focus:ring-primary focus:border-primary outline-none" type="text" value="LAP_24_BAHRAIN"/>
+</div>
+<div class="flex items-center gap-2">
+<input checked="" class="w-4 h-4 rounded bg-surface-container border-outline-variant/30 text-primary focus:ring-0" type="checkbox"/>
+<label class="font-label-sm text-[10px] uppercase">Compare Laps</label>
+</div>
+</div>
+</div>
+<!-- Status Chips -->
+<div class="md:col-span-1 glass-panel p-6 rounded-2xl flex flex-col justify-between">
+<h4 class="font-label-sm text-label-sm text-outline uppercase">Status Indicators</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-2 bg-telemetry-throttle/10 text-telemetry-throttle border-r-2 border-telemetry-throttle px-3 py-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-sm">check_circle</span> DRS ACTIVE
+                            </div>
+<div class="flex items-center gap-2 bg-telemetry-brake/10 text-telemetry-brake border-r-2 border-telemetry-brake px-3 py-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-sm">warning</span> OIL PRESSURE
+                            </div>
+</div>
+</div>
+<!-- Chart Standard -->
+<div class="md:col-span-2 glass-panel p-8 rounded-2xl" id="charts">
+<h4 class="font-label-sm text-label-sm text-outline uppercase mb-6">Chart Standards</h4>
+<div class="relative h-32 border-l border-b border-outline-variant/30 mb-4 overflow-hidden">
+<!-- Grid -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<!-- Mock Data Line -->
+<svg class="absolute inset-0 w-full h-full">
+<path d="M0,80 Q50,40 100,60 T200,20 T300,50 T400,10" fill="none" stroke="#7bd0ff" stroke-width="2"></path>
+<circle class="animate-pulse" cx="300" cy="50" fill="#7bd0ff" r="4"></circle>
+</svg>
+<!-- Scrubber -->
+<div class="absolute top-0 bottom-0 left-[300px] w-px bg-primary shadow-[0_0_10px_rgba(208,188,255,0.5)] z-10"></div>
+</div>
+<ul class="text-xs text-on-surface-variant space-y-2 list-disc pl-4">
+<li>Stroke width: strictly 1.5pt to 2pt.</li>
+<li>Background grid: 20px intervals at 5% opacity.</li>
+<li>Interactive scrubbers must trigger data-point focus.</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Motion & Voice -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-16" id="motion">
+<div class="space-y-8">
+<div class="border-l-4 border-primary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">MOTION PRINCIPLES</h3>
+<p class="text-on-surface-variant">Linear precision for rapid feedback.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 space-y-6">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md opacity-50">Fast (Micro-feedback)</span>
+<span class="font-data-display text-primary">100ms</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full">
+<div class="bg-primary h-full w-[10%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md opacity-50">Standard (Panel Exit)</span>
+<span class="font-data-display text-primary">200ms</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full">
+<div class="bg-primary h-full w-[20%] rounded-full"></div>
+</div>
+</div>
+<p class="text-xs text-outline leading-relaxed italic mt-4">
+                            Curve Protocol: cubic-bezier(0.2, 0.0, 0, 1.0) - Linear-style start with a rapid terminal decelerate.
+                        </p>
+</div>
+</div>
+<div class="space-y-8" id="accessibility">
+<div class="border-l-4 border-secondary pl-6">
+<h3 class="font-headline-lg text-headline-lg mb-2">VOICE &amp; ACCESSIBILITY</h3>
+<p class="text-on-surface-variant">The human side of engineering.</p>
+</div>
+<div class="glass-panel p-8 rounded-xl space-y-6">
+<div class="space-y-2">
+<h5 class="font-label-md text-label-md font-bold text-primary">TONE: CONFIDENT &amp; CLINICAL</h5>
+<p class="text-sm text-on-surface-variant italic">"Fuel levels are within critical tolerances for 3 additional laps."</p>
+<p class="text-xs text-outline">Avoid: "You're doing great, just keep going!"</p>
+</div>
+<hr class="border-outline-variant/10"/>
+<div class="space-y-2">
+<h5 class="font-label-md text-label-md font-bold text-secondary">ACCESSIBILITY: BEYOND COLOR</h5>
+<p class="text-sm text-on-surface-variant">Every status indicator MUST have a unique icon companion. We never rely on color alone to communicate status (e.g., Brake vs Throttle line patterns).</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="pt-32 pb-16 border-t border-outline-variant/10 text-center">
+<div class="mb-8 opacity-20 hover:opacity-100 transition-opacity">
+<h2 class="font-headline-lg text-headline-lg font-extrabold tracking-[0.5em] text-on-surface">RACECRAFT</h2>
+</div>
+<p class="text-outline font-label-sm text-label-sm max-w-md mx-auto">
+                    PROPERTY OF RACECRAFT MOTORSPORT ENGINEERING GROUP. ALL TOKENS ARE SUBJECT TO PRECISION GUIDELINES. UNAUTHORIZED MODIFICATION PROHIBITED.
+                </p>
+</footer>
+</div>
+</main>
+<script>
+        // Simple scroll spy for navigation
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-primary-container/10', 'text-primary', 'border-r-2', 'border-primary');
+                link.classList.add('text-on-surface-variant');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.remove('text-on-surface-variant');
+                    link.classList.add('bg-primary-container/10', 'text-primary', 'border-r-2', 'border-primary');
+                }
+            });
+        });
+
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.95)');
+            btn.addEventListener('mouseup', () => btn.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

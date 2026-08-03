@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RACECRAFT | Ultra-Wide Engineering Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#201c00",
+                    "on-tertiary": "#363100",
+                    "surface-dim": "#141317",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#00a6e0",
+                    "primary-fixed": "#e9ddff",
+                    "tertiary": "#f1e488",
+                    "primary-container": "#d0bcff",
+                    "outline": "#948f9a",
+                    "on-background": "#e6e1e7",
+                    "background": "#06070a",
+                    "error-container": "#93000a",
+                    "on-primary": "#37265e",
+                    "surface-variant": "#363438",
+                    "inverse-on-surface": "#323034",
+                    "surface-tint": "#d0bcff",
+                    "on-tertiary-container": "#5c5301",
+                    "surface-container-high": "#2b292d",
+                    "secondary": "#7bd0ff",
+                    "on-error": "#690005",
+                    "on-surface-variant": "#cbc3d7",
+                    "on-primary-container": "#594983",
+                    "tertiary-fixed": "#f1e588",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-secondary-container": "#00374d",
+                    "telemetry-drs": "#fbbf24",
+                    "outline-variant": "#494454",
+                    "on-secondary": "#00354a",
+                    "surface-container": "#211f23",
+                    "on-surface": "#e6e1e7",
+                    "secondary-fixed": "#c4e7ff",
+                    "on-primary-fixed-variant": "#4d3d76",
+                    "tertiary-fixed-dim": "#d4c86f",
+                    "surface-container-low": "#1c1b1f",
+                    "error": "#ffb4ab",
+                    "inverse-surface": "#e6e1e7",
+                    "primary": "#e9ddff",
+                    "on-primary-fixed": "#210f48",
+                    "inverse-primary": "#665590",
+                    "surface-bright": "#3b383d",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "on-tertiary-fixed-variant": "#4f4800",
+                    "surface-container-lowest": "#0f0d15",
+                    "primary-fixed-dim": "#d0bcff",
+                    "surface-container-highest": "#363438",
+                    "surface": "#11131a",
+                    "telemetry-brake": "#f43f5e",
+                    "tertiary-fixed-dim": "#d4c86f",
+                    "telemetry-throttle": "#10b981"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-margin": "32px",
+                    "unit": "4px",
+                    "component-padding": "12px",
+                    "section-gap": "64px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "data-display": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-display": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(15, 13, 21, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .grid-bg {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .telemetry-glow:hover {
+            box-shadow: 0 0 15px rgba(208, 188, 255, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #06070a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #363438;
+            border-radius: 10px;
+        }
+        .playhead {
+            pointer-events: none;
+            transition: left 0.05s linear;
+        }
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .pulse-live {
+            animation: subtle-pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/30 overflow-hidden">
+<!-- SIDEBAR ANCHOR -->
+<aside class="fixed left-0 top-0 h-screen w-[280px] bg-surface-container-lowest border-r border-outline-variant/10 flex flex-col py-spacing-gutter z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface">RACECRAFT</h1>
+<p class="font-label-sm text-label-sm text-outline tracking-widest mt-1">ENGINEERING V1.0.4</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<!-- Active State Logic: Dashboard -->
+<a class="flex items-center gap-4 bg-primary-container/10 text-primary border-r-2 border-primary px-4 py-3 scale-95 duration-100 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="insights">insights</span>
+<span class="font-label-md text-label-md">Telemetry</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="route">route</span>
+<span class="font-label-md text-label-md">Strategy</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="compare_arrows">compare_arrows</span>
+<span class="font-label-md text-label-md">Comparison</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-3 hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary text-on-primary py-3 px-4 font-label-md text-label-md rounded flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="sensors">sensors</span>
+                LIVE TELEMETRY
+            </button>
+<div class="mt-6 flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-2 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant px-4 py-2 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+<span class="font-label-sm text-label-sm">Support</span>
+</a>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/10 flex items-center gap-3 px-4">
+<div class="w-8 h-8 rounded bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro portrait of a professional motorsport race engineer wearing a black carbon-fiber headset, backlit by the blue glow of multi-monitor telemetry screens in a dark pit lane garage. High-tech, clinical, cinematic lighting with extreme detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3m7_KGtiVuYVlFdh75J8y-F93S-XB2VLUNKbbulpHpjQT3nowzSv6QYjZ66FwhCXZwh0BmoImjvrcQAPmzzY9qAZy6zPrnky1iNgA5IO-8VP34SA5pj2H4MsX5xjMoreFcKP9CHKzzyBVpQgZ3QgMtFSnvTiqf0sld8sdfIJ9dIxqOwGPApnsgJ8iq7lkxcRftJDRmXdShx1aaI0VPf3LSyfo65b3AfT0OoONHBY03jvFxRnmkMP6"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface leading-none">J. VERSTAPPEN</p>
+<p class="font-label-sm text-label-sm text-outline mt-1 uppercase">Lead Engineer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT WRAPPER -->
+<main class="ml-[280px] h-screen flex flex-col overflow-hidden bg-background">
+<!-- TOP APP BAR -->
+<header class="flex justify-between items-center h-16 w-full px-spacing-container-margin sticky top-0 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 z-40">
+<div class="flex items-center gap-8">
+<nav class="flex items-center gap-6">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-all" href="#">Season 2024</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-all" href="#">Bahrain GP</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Qualifying</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-surface-container-highest/30 px-3 py-1.5 rounded border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-telemetry-throttle pulse-live"></span>
+<span class="font-label-sm text-label-sm text-telemetry-throttle">SESSION LIVE: 14:02:44</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary transition-all"><span class="material-symbols-outlined" data-icon="wifi_tethering">wifi_tethering</span></button>
+</div>
+<button class="bg-surface-container-highest hover:bg-surface-container-highest/80 text-on-surface font-label-md text-label-md px-4 py-2 border border-outline-variant/20 rounded transition-all">
+                    GO LIVE
+                </button>
+</div>
+</header>
+<!-- WORKSPACE (ULTRA-WIDE FLEX) -->
+<div class="flex-1 flex overflow-hidden grid-bg relative">
+<!-- LEFT PANEL: TELEMETRY WORKSPACE -->
+<section class="flex-[3] flex flex-col border-r border-outline-variant/10 min-w-0">
+<!-- HUD TOP STATS -->
+<div class="grid grid-cols-4 gap-4 p-4 border-b border-outline-variant/10 glass-panel">
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Speed</span>
+<div class="flex items-baseline gap-1">
+<span class="font-data-display text-data-display text-on-surface">312.4</span>
+<span class="font-label-sm text-label-sm text-outline">KM/H</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">RPM</span>
+<div class="flex items-baseline gap-1">
+<span class="font-data-display text-data-display text-on-surface">11,240</span>
+<span class="w-full h-1 bg-surface-container-highest mt-1 relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-primary w-[78%]"></div>
+</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">E-Diff</span>
+<div class="flex items-baseline gap-1">
+<span class="font-data-display text-data-display text-secondary">64%</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="keyboard_arrow_up">keyboard_arrow_up</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase">Brake Bias</span>
+<div class="flex items-baseline gap-1">
+<span class="font-data-display text-data-display text-on-surface">54.0</span>
+<span class="font-label-sm text-label-sm text-outline">FWD</span>
+</div>
+</div>
+</div>
+<!-- MAIN CHART AREA -->
+<div class="flex-1 p-6 relative custom-scrollbar overflow-y-auto space-y-6">
+<!-- CHART: SPEED & GEAR -->
+<div class="space-y-2 group relative">
+<div class="flex justify-between items-center">
+<h3 class="font-label-sm text-label-sm text-outline uppercase flex items-center gap-2">
+<span class="w-1 h-3 bg-secondary"></span> Speed Analysis (km/h)
+                            </h3>
+<span class="font-data-display text-data-display text-secondary text-[14px]">v: 312.4 km/h</span>
+</div>
+<div class="h-48 w-full border border-outline-variant/10 relative overflow-hidden bg-surface/40 telemetry-glow transition-shadow rounded">
+
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<!-- Ghost Lap -->
+<path class="text-outline opacity-30" d="M 0 150 Q 100 120, 200 160 T 400 140 T 600 170 T 800 130 T 1200 150" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+<!-- Current Lap -->
+<path class="text-secondary" d="M 0 140 Q 100 110, 200 150 T 400 130 T 600 160 T 800 120 T 1200 140" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+<div class="playhead absolute top-0 bottom-0 w-[1px] bg-primary left-[45%] z-10 shadow-[0_0_8px_rgba(233,221,255,1)]">
+<div class="absolute -top-1 -left-[3.5px] w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- CHART: PEDAL TELEMETRY -->
+<div class="space-y-2 group relative">
+<div class="flex justify-between items-center">
+<h3 class="font-label-sm text-label-sm text-outline uppercase flex items-center gap-2">
+<span class="w-1 h-3 bg-telemetry-throttle"></span> Throttle / <span class="w-1 h-3 bg-telemetry-brake"></span> Brake
+                            </h3>
+<div class="flex gap-4">
+<span class="font-data-display text-data-display text-telemetry-throttle text-[14px]">TH: 100%</span>
+<span class="font-data-display text-data-display text-telemetry-brake text-[14px]">BR: 0%</span>
+</div>
+</div>
+<div class="h-32 w-full border border-outline-variant/10 relative overflow-hidden bg-surface/40 telemetry-glow transition-shadow rounded">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<!-- Throttle -->
+<path class="text-telemetry-throttle" d="M 0 100 L 200 100 L 250 10 L 400 10 L 450 100 L 1200 100" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+<!-- Brake -->
+<path class="text-telemetry-brake" d="M 0 120 L 400 120 L 410 10 L 440 10 L 450 120 L 1200 120" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+</svg>
+<div class="playhead absolute top-0 bottom-0 w-[1px] bg-primary left-[45%] z-10"></div>
+</div>
+</div>
+<!-- CHART: STEERING ANGLE -->
+<div class="space-y-2 group relative">
+<div class="flex justify-between items-center">
+<h3 class="font-label-sm text-label-sm text-outline uppercase flex items-center gap-2">
+<span class="w-1 h-3 bg-primary"></span> Steering Delta
+                            </h3>
+<span class="font-data-display text-data-display text-primary text-[14px]">Δ: -14.2°</span>
+</div>
+<div class="h-32 w-full border border-outline-variant/10 relative overflow-hidden bg-surface/40 telemetry-glow transition-shadow rounded">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<line class="text-outline-variant" stroke="currentColor" stroke-dasharray="4" stroke-width="1" x1="0" x2="100%" y1="64" y2="64"></line>
+<path class="text-primary" d="M 0 64 Q 100 20, 200 64 T 400 110 T 600 64 T 800 40 T 1200 64" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+<div class="playhead absolute top-0 bottom-0 w-[1px] bg-primary left-[45%] z-10"></div>
+</div>
+</div>
+</div>
+<!-- PLAYBACK CONTROLS -->
+<div class="h-20 bg-surface-container-lowest border-t border-outline-variant/10 flex items-center px-6 gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="skip_previous">skip_previous</span></button>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-110 transition-transform"><span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="skip_next">skip_next</span></button>
+<div class="flex-1 h-1 bg-surface-container-highest rounded-full relative mx-4">
+<div class="absolute h-full bg-primary w-[45%] rounded-full"></div>
+<div class="absolute -top-1.5 left-[45%] w-4 h-4 bg-primary border-2 border-background rounded-full cursor-pointer shadow-lg shadow-primary/40"></div>
+</div>
+<div class="flex items-center gap-4 border-l border-outline-variant/20 pl-6">
+<span class="font-data-display text-data-display text-[12px] text-on-surface">1x</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="loop">loop</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span></button>
+</div>
+</div>
+</section>
+<!-- MIDDLE PANEL: COMPARE WORKSPACE -->
+<section class="flex-[2] flex flex-col border-r border-outline-variant/10 glass-panel min-w-[500px]">
+<div class="p-4 border-b border-outline-variant/10 flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="compare">compare</span>
+                        LAP COMPARISON
+                    </h2>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 px-2 py-1 bg-secondary/10 border border-secondary/20 rounded">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary">LAP 22 (LATEST)</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1 bg-outline/10 border border-outline/20 rounded">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-sm text-label-sm text-outline">LAP 14 (REF)</span>
+</div>
+</div>
+</div>
+<div class="flex-1 p-4 flex flex-col gap-4 overflow-y-auto custom-scrollbar">
+<!-- SECTOR TIMES -->
+<div class="space-y-3">
+<div class="flex justify-between items-end border-b border-outline-variant/10 pb-2">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Sector Split</span>
+<span class="font-label-sm text-label-sm text-error uppercase">-0.142s OFF PACE</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-low p-4 border border-outline-variant/10 rounded">
+<span class="font-label-sm text-label-sm text-outline">S1</span>
+<div class="font-data-display text-data-display text-telemetry-throttle mt-1">28.140</div>
+<div class="text-[10px] text-telemetry-throttle font-bold">-0.004</div>
+</div>
+<div class="bg-surface-container-low p-4 border border-outline-variant/10 rounded">
+<span class="font-label-sm text-label-sm text-outline">S2</span>
+<div class="font-data-display text-data-display text-error mt-1">39.882</div>
+<div class="text-[10px] text-error font-bold">+0.128</div>
+</div>
+<div class="bg-surface-container-low p-4 border border-outline-variant/10 rounded">
+<span class="font-label-sm text-label-sm text-outline">S3</span>
+<div class="font-data-display text-data-display text-on-surface mt-1">21.450</div>
+<div class="text-[10px] text-outline font-bold">+0.018</div>
+</div>
+</div>
+</div>
+<!-- G-FORCE HEATMAP / VECTOR -->
+<div class="bg-surface-container-low p-4 border border-outline-variant/10 rounded flex flex-col items-center gap-4">
+<div class="w-full flex justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase">G-Force Vector</span>
+<span class="font-data-display text-data-display text-on-surface text-sm">4.2 G MAX</span>
+</div>
+<div class="relative w-40 h-40 border border-outline-variant/20 flex items-center justify-center">
+<div class="absolute inset-0 grid grid-cols-4 grid-rows-4">
+<div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div>
+<div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div>
+<div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div>
+<div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div><div class="border border-outline-variant/5"></div>
+</div>
+<!-- X/Y Axes -->
+<div class="absolute w-px h-full bg-outline-variant/20"></div>
+<div class="absolute h-px w-full bg-outline-variant/20"></div>
+<!-- Current G Point -->
+<div class="absolute w-4 h-4 bg-primary rounded-full blur-[2px] shadow-[0_0_10px_rgba(208,188,255,1)]" style="top: 30%; left: 70%;"></div>
+<div class="absolute w-2 h-2 bg-white rounded-full" style="top: 30%; left: 70%; transform: translate(-50%, -50%);"></div>
+<!-- Comparison Path -->
+<svg class="absolute inset-0 w-full h-full opacity-20">
+<path d="M 80 80 Q 120 40, 140 100 T 60 120" fill="none" stroke="white" stroke-width="1"></path>
+</svg>
+</div>
+</div>
+<!-- BRAKE THERMAL MONITOR -->
+<div class="space-y-2">
+<span class="font-label-sm text-label-sm text-outline uppercase">Brake Thermals (°C)</span>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3">
+<div class="w-1 h-12 bg-telemetry-brake/30 rounded overflow-hidden flex flex-col justify-end">
+<div class="bg-telemetry-brake w-full h-[85%]"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">FL</p>
+<p class="font-data-display text-data-display text-telemetry-brake text-sm">842°</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-1 h-12 bg-telemetry-throttle/30 rounded overflow-hidden flex flex-col justify-end">
+<div class="bg-telemetry-throttle w-full h-[65%]"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline">FR</p>
+<p class="font-data-display text-data-display text-telemetry-throttle text-sm">620°</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: CONTEXT & NOTES -->
+<section class="w-[320px] bg-surface-container-lowest flex flex-col min-w-[320px]">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface uppercase">Engineer Notes</span>
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined" data-icon="add_circle">add_circle</span></button>
+</div>
+<div class="flex-1 p-4 space-y-6 overflow-y-auto custom-scrollbar">
+<!-- NOTE ITEM -->
+<div class="p-3 bg-surface-container-high/40 border-l-2 border-secondary rounded-r">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-sm text-label-sm text-secondary">T3 EXIT OVERSTEER</span>
+<span class="font-label-sm text-label-sm text-outline">14:12</span>
+</div>
+<p class="text-[12px] leading-relaxed text-on-surface-variant">
+                            Driver reporting lateral instability on kerb exit. Telemetry confirms 15% more steering correction compared to L14. Suspension compression suggests bottoming out.
+                        </p>
+</div>
+<!-- STRATEGY WIDGET -->
+<div class="space-y-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Tire Status</span>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full border-4 border-error flex items-center justify-center font-bold text-[10px]">S</div>
+<span class="font-label-sm text-label-sm text-on-surface">Soft (C4)</span>
+</div>
+<span class="font-data-display text-data-display text-sm text-on-surface">65% Life</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- DRS STATUS -->
+<div class="p-4 border border-outline-variant/20 rounded bg-telemetry-drs/5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-telemetry-drs" data-icon="air">air</span>
+<span class="font-label-md text-label-md text-telemetry-drs">DRS AVAILABLE</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-telemetry-drs pulse-live"></span>
+</div>
+<!-- LIVE TRACK MAP (SMALL PREVIEW) -->
+<div class="space-y-2">
+<span class="font-label-sm text-label-sm text-outline uppercase">Track Position</span>
+<div class="h-40 w-full bg-surface-container-high rounded relative overflow-hidden group">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-sm text-label-sm text-outline group-hover:text-primary transition-colors">SAKHIR CIRCUIT</span>
+</div>
+<!-- Driver Indicators -->
+<div class="absolute w-3 h-3 bg-secondary rounded-full border-2 border-background" style="top: 40%; left: 30%;"></div>
+<div class="absolute w-2 h-2 bg-outline rounded-full" style="top: 42%; left: 28%;"></div>
+</div>
+</div>
+</div>
+<!-- FOOTER BRANDING -->
+<div class="p-4 bg-surface-container-highest/20 text-center">
+<span class="font-label-sm text-label-sm text-outline tracking-widest">POWERED BY RACECRAFT CORE</span>
+</div>
+</section>
+</div>
+<!-- CONTEXTUAL FAB -->
+<div class="fixed bottom-8 right-8 z-[60]">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-[0_0_20px_rgba(208,188,255,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" data-icon="bolt">bolt</span>
+</button>
+</div>
+</main>
+<script>
+        // Micro-interaction: Update playhead position on mousemove over charts
+        const charts = document.querySelectorAll('.telemetry-glow');
+        const playheads = document.querySelectorAll('.playhead');
+
+        charts.forEach(chart => {
+            chart.addEventListener('mousemove', (e) => {
+                const rect = chart.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = (x / rect.width) * 100;
+                
+                playheads.forEach(ph => {
+                    ph.style.left = `${percentage}%`;
+                });
+            });
+        });
+
+        // Toggle Live status pulse intensity
+        setInterval(() => {
+            const indicators = document.querySelectorAll('.pulse-live');
+            indicators.forEach(ind => {
+                ind.style.opacity = ind.style.opacity === '0.5' ? '1' : '0.5';
+            });
+        }, 1000);
+    </script>
+</body></html>

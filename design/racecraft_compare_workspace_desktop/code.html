@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RACECRAFT | Compare Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(21, 18, 27, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(73, 68, 84, 0.2);
+        }
+        .telemetry-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #37333d; border-radius: 2px; }
+        
+        @keyframes pulse-red { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
+        @keyframes pulse-orange { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
+        .car-ghost-a { animation: pulse-red 2s infinite ease-in-out; }
+        .car-ghost-b { animation: pulse-orange 2s infinite ease-in-out; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-highest": "#37333d",
+                        "surface": "#15121b",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-secondary": "#00354a",
+                        "inverse-primary": "#6d3bd7",
+                        "on-primary-fixed": "#23005c",
+                        "surface-dim": "#15121b",
+                        "surface-bright": "#3b3742",
+                        "surface-container": "#211e27",
+                        "secondary-container": "#00a6e0",
+                        "tertiary-fixed": "#ffdcbb",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-tertiary": "#482900",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "surface-container-lowest": "#0f0d15",
+                        "inverse-surface": "#e7e0ed",
+                        "outline-variant": "#494454",
+                        "primary-container": "#a078ff",
+                        "secondary-container": "#00a6e0",
+                        "background": "#15121b",
+                        "on-primary-container": "#340080",
+                        "surface-tint": "#d0bcff",
+                        "tertiary": "#ffb869",
+                        "secondary": "#7bd0ff",
+                        "on-surface": "#e7e0ed",
+                        "surface-container-high": "#2c2832",
+                        "on-surface-variant": "#cbc3d7",
+                        "primary": "#d0bcff",
+                        "ferrari": "#EF1A2D",
+                        "mclaren": "#FF8000"
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    spacing: { "unit": "4px", "section-gap": "64px", "container-margin": "32px", "gutter": "16px", "component-padding": "12px" },
+                    fontFamily: {
+                        "body-lg": ["Inter"], "headline-lg": ["Inter"], "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"], "headline-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["10px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-lg selection:bg-primary/30 overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/10 flex justify-between items-center px-container-margin py-component-padding h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary text-2xl">precision_manufacturing</span>
+<h1 class="font-label-md text-label-md tracking-[0.2em] text-on-surface uppercase">RACECRAFT</h1>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase opacity-50">Season</span>
+<span class="font-label-md text-label-md">2024</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase opacity-50">Grand Prix</span>
+<span class="font-label-md text-label-md text-secondary">Monaco GP</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase opacity-50">Session</span>
+<span class="font-label-md text-label-md">Qualifying</span>
+</div>
+</div>
+<button class="bg-primary px-4 py-2 text-on-primary font-label-md text-label-md hover:bg-primary-container transition-colors rounded-sm">
+                EXPORT DATA
+            </button>
+</div>
+</header>
+<!-- Sidebar -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] w-[280px] z-40 bg-surface-dim/95 backdrop-blur-md border-r border-outline-variant/10 flex flex-col gap-unit p-component-padding shadow-[30px_0_60px_-15px_rgba(0,0,0,0.5)]">
+<div class="mb-8 px-4">
+<h2 class="font-label-md text-label-md text-primary tracking-widest opacity-60">SYSTEM_ANALYSIS</h2>
+</div>
+<a class="flex items-center gap-4 px-4 py-3 bg-primary-container/10 text-primary border-r-2 border-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Telemetry</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">air</span>
+<span class="font-label-md text-label-md">Aero</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">tire_repair</span>
+<span class="font-label-md text-label-md">Tires</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Engine</span>
+</a>
+<div class="mt-auto border-t border-outline-variant/10 pt-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Server Live</span>
+</div>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="pl-[280px] pt-16 h-screen flex flex-col">
+<!-- Comparison Header -->
+<div class="grid grid-cols-2 gap-px bg-outline-variant/10 border-b border-outline-variant/10">
+<!-- Driver A -->
+<div class="p-6 bg-surface-container-lowest flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="h-16 w-1 bg-ferrari shadow-[2px_0_10px_rgba(239,26,45,0.4)]"></div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-ferrari">16</span>
+<h3 class="font-headline-md text-headline-md">LECLERC</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">SCUDERIA FERRARI | LAP 18</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm opacity-50 uppercase">Lap Time</span>
+<p class="font-label-md text-2xl font-bold text-on-surface">1:10.270</p>
+</div>
+</div>
+<!-- Driver B -->
+<div class="p-6 bg-surface-container-lowest flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="h-16 w-1 bg-mclaren shadow-[2px_0_10px_rgba(255,128,0,0.4)]"></div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-mclaren">81</span>
+<h3 class="font-headline-md text-headline-md">PIASTRI</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">MCLAREN F1 TEAM | LAP 17</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm opacity-50 uppercase">Lap Time</span>
+<p class="font-label-md text-2xl font-bold text-on-surface">1:10.354</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex overflow-hidden">
+<!-- Telemetry Central Suite -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4">
+<!-- Speed Chart -->
+<div class="glass-panel rounded-lg p-4 relative overflow-hidden group">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Velocity (km/h)</span>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-ferrari"></div>
+<span class="font-label-sm text-label-sm">284</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0.5 bg-mclaren"></div>
+<span class="font-label-sm text-label-sm">281</span>
+</div>
+</div>
+</div>
+<div class="h-40 telemetry-grid relative border border-outline-variant/5">
+<!-- Simulated Chart Path -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<path class="opacity-80" d="M0,80 L50,75 L100,70 L150,40 L200,30 L300,35 L400,20 L500,25 L600,10 L800,15 L1000,50 L1200,85" fill="none" stroke="#EF1A2D" stroke-width="1.5"></path>
+<path class="opacity-80" d="M0,85 L50,80 L100,75 L150,45 L200,35 L300,40 L400,25 L500,30 L600,15 L800,20 L1000,55 L1200,90" fill="none" stroke="#FF8000" stroke-width="1.5"></path>
+</svg>
+<!-- Playhead -->
+<div class="absolute top-0 bottom-0 left-[45%] w-px bg-primary z-10">
+<div class="absolute top-1/2 -left-[4px] w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#d0bcff]"></div>
+</div>
+</div>
+</div>
+<!-- Throttle/Brake Chart -->
+<div class="glass-panel rounded-lg p-4 relative overflow-hidden">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Input (%)</span>
+<span class="font-label-sm text-label-sm opacity-40">THROTTLE / BRAKE</span>
+</div>
+<div class="h-32 telemetry-grid relative border border-outline-variant/5">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<!-- Driver A Throttle -->
+<path d="M0,10 L200,10 L300,90 L400,90 L600,10 L1000,10" fill="none" stroke="#EF1A2D" stroke-width="1.5"></path>
+<!-- Driver B Throttle -->
+<path d="M0,12 L205,12 L305,92 L405,92 L605,12 L1000,12" fill="none" stroke="#FF8000" stroke-dasharray="4 2" stroke-width="1"></path>
+</svg>
+</div>
+</div>
+<!-- Delta Time Chart -->
+<div class="glass-panel rounded-lg p-4 relative overflow-hidden">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Time Delta (s)</span>
+<span class="font-label-md text-label-md text-ferrari">-0.084s</span>
+</div>
+<div class="h-20 telemetry-grid relative border border-outline-variant/5">
+<div class="absolute top-1/2 w-full h-px bg-on-surface/10"></div>
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<path d="M0,40 C100,35 200,30 300,32 C400,38 500,45 600,42 C800,35 1000,38 1200,40" fill="none" stroke="#d0bcff" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Panel -->
+<div class="w-[400px] border-l border-outline-variant/10 bg-surface-container-low flex flex-col">
+<!-- Track Map Section -->
+<div class="p-6 border-b border-outline-variant/10 relative">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-label-md text-label-md uppercase opacity-50 tracking-widest">Track Overview</h4>
+<span class="font-label-sm text-label-sm text-on-surface-variant">S3 - SECTOR 3</span>
+</div>
+<div class="relative h-64 bg-surface-container-lowest rounded-lg border border-outline-variant/10 flex items-center justify-center group">
+<!-- Abstract Map Visual -->
+<div class="w-full h-full bg-contain bg-center bg-no-repeat opacity-40" data-alt="A highly detailed technical 2D top-down diagram of the Circuit de Monaco Formula 1 track. The lines are thin, glowing electric cyan against a deep obsidian black background. Subtle grid lines and elevation markers are visible. Small glowing dots, one red and one orange, represent car positions on the track near the Rascasse corner." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD5023dNjAM22FvFmMky11K2fAfXkopabZ0Enumj8EwmQX5YsranHl8iN76cAI4S4hVY1mob8PrwiAQ9Mhlvix40EdlQtAZ1OdC2RovyhWVRyjP_R_RRRwe6hsLyil5pZIf3waUl37Re9IFHEEHGj5oob14ZCXMlTXiXUs-UxZEyeRiBgLFEvzNxrK2f8jVbDJiW4VHncMsHofuWVw7L4eVtNEmDl5HvTmYgj3BAOs_InH0m2kVTNcx')"></div>
+<!-- Floating Ghost Cars -->
+<div class="absolute bottom-[20%] right-[30%] car-ghost-a w-3 h-3 rounded-full bg-ferrari shadow-[0_0_15px_rgba(239,26,45,1)]"></div>
+<div class="absolute bottom-[22%] right-[28%] car-ghost-b w-3 h-3 rounded-full bg-mclaren shadow-[0_0_15px_rgba(255,128,0,1)]"></div>
+<!-- Corner Inspector Tooltip -->
+<div class="absolute bottom-[10%] left-[10%] glass-panel p-3 border-primary/30 rounded shadow-2xl scale-95 hover:scale-100 transition-transform">
+<div class="flex items-center gap-2 mb-2 border-b border-outline-variant/20 pb-1">
+<span class="material-symbols-outlined text-sm text-primary">location_on</span>
+<span class="font-label-md text-label-md">La Rascasse (T17)</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-sm text-on-surface-variant uppercase text-[8px]">Entry</p>
+<p class="font-label-md text-ferrari">94 <span class="text-[8px]">km/h</span></p>
+<p class="font-label-md text-mclaren">91 <span class="text-[8px]">km/h</span></p>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant uppercase text-[8px]">Gear</p>
+<p class="font-label-md text-on-surface">2</p>
+<p class="font-label-md text-on-surface">2</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Engineering Insights -->
+<div class="flex-1 p-6 space-y-6">
+<h4 class="font-label-md text-label-md uppercase opacity-50 tracking-widest">Engineering Insights</h4>
+<div class="space-y-4">
+<!-- Insight Row 1 -->
+<div class="bg-surface-container-high/30 p-3 rounded border-l-2 border-primary">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-on-surface-variant">TOP SPEED (S3)</span>
+<span class="text-primary">+3.2 km/h</span>
+</div>
+<div class="flex items-end gap-2 font-label-md">
+<span class="text-xl font-bold text-ferrari">284.1</span>
+<span class="text-on-surface-variant pb-1">vs</span>
+<span class="text-xl font-bold text-mclaren">280.9</span>
+</div>
+</div>
+<!-- Insight Row 2 -->
+<div class="bg-surface-container-high/30 p-3 rounded">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-on-surface-variant">MAX BRAKE PRESSURE</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-1 h-1.5 bg-outline-variant/20 rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-ferrari w-[88%]"></div>
+</div>
+<span class="font-label-md text-ferrari">88%</span>
+</div>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex-1 h-1.5 bg-outline-variant/20 rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-mclaren w-[92%]"></div>
+</div>
+<span class="font-label-md text-mclaren">92%</span>
+</div>
+</div>
+<!-- Insight Row 3 -->
+<div class="bg-surface-container-high/30 p-3 rounded">
+<div class="flex justify-between text-xs mb-1">
+<span class="text-on-surface-variant">TIRE TEMP (FRONT L)</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-label-md text-2xl text-on-surface">102°C</span>
+<span class="text-[10px] text-emerald-400">OPTIMAL</span>
+</div>
+</div>
+</div>
+<!-- Visual Indicator -->
+<div class="mt-8 relative h-32 rounded bg-surface-container-lowest/50 border border-outline-variant/10 overflow-hidden">
+
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+<span class="material-symbols-outlined text-primary mb-2">analytics</span>
+<p class="font-label-sm text-[9px] uppercase tracking-tighter opacity-40">Predictive Modeling Active</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Overlay (Taskbar Style) -->
+<footer class="fixed bottom-0 left-[280px] right-0 bg-surface-container-lowest border-t border-outline-variant/10 flex justify-between items-center px-6 py-2 z-50">
+<div class="flex items-center gap-8 opacity-60">
+<span class="font-label-sm text-[10px]">SYNC: 100%</span>
+<span class="font-label-sm text-[10px]">LATENCY: 12ms</span>
+<span class="font-label-sm text-[10px]">PACKET LOSS: 0.00%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-sm hover:text-primary cursor-pointer transition-colors">history</span>
+<span class="material-symbols-outlined text-sm hover:text-primary cursor-pointer transition-colors">share</span>
+<span class="material-symbols-outlined text-sm hover:text-primary cursor-pointer transition-colors">settings</span>
+</div>
+</footer>
+<script>
+        // Micro-interaction for chart scrubbing
+        const mainContainer = document.querySelector('main');
+        mainContainer.addEventListener('mousemove', (e) => {
+            // Logic for updating playhead position could go here for high-fidelity demos
+        });
+    </script>
+</body></html>

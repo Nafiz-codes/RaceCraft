@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RACECRAFT | Precision Telemetry Systems</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#00374d",
+                    "surface-container": "#211e27",
+                    "tertiary-fixed": "#ffdcbb",
+                    "outline": "#958ea0",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#2c2832",
+                    "background": "#06070A",
+                    "tertiary": "#ffb869",
+                    "on-tertiary-container": "#3f2300",
+                    "primary-fixed-dim": "#d0bcff",
+                    "error": "#ffb4ab",
+                    "outline-variant": "#494454",
+                    "on-tertiary": "#482900",
+                    "on-secondary-fixed": "#001e2c",
+                    "on-primary-fixed": "#23005c",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#7bd0ff",
+                    "inverse-surface": "#e7e0ed",
+                    "on-error": "#690005",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "on-secondary": "#00354a",
+                    "on-primary-fixed-variant": "#5516be",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "inverse-on-surface": "#322f39",
+                    "surface-container-lowest": "#0f0d15",
+                    "inverse-primary": "#6d3bd7",
+                    "surface": "#15121b",
+                    "surface-container-low": "#1d1a23",
+                    "surface-bright": "#3b3742",
+                    "on-primary": "#3c0091",
+                    "secondary": "#7bd0ff",
+                    "primary-container": "#a078ff",
+                    "on-surface": "#e7e0ed",
+                    "on-secondary-fixed-variant": "#004c69",
+                    "surface-tint": "#d0bcff",
+                    "tertiary-container": "#ca801e",
+                    "primary": "#d0bcff",
+                    "on-background": "#e7e0ed",
+                    "on-tertiary-fixed": "#2c1700",
+                    "primary-fixed": "#e9ddff",
+                    "surface-variant": "#37333d",
+                    "on-primary-container": "#340080",
+                    "surface-container-highest": "#37333d",
+                    "surface-dim": "#15121b",
+                    "secondary-fixed": "#c4e7ff",
+                    "secondary-container": "#00a6e0",
+                    "on-surface-variant": "#cbc3d7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-gap": "64px",
+                    "component-padding": "12px",
+                    "gutter": "16px",
+                    "container-margin": "32px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .telemetry-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 3s ease-out forwards;
+        }
+
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .parallax-section {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .car-mask {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            grid-template-rows: auto 1fr auto;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md overflow-x-hidden selection:bg-primary/30 selection:text-primary">
+<!-- TOP NAVIGATION BAR (TopAppBar Anchor) -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/10">
+<div class="flex justify-between items-center px-container-margin py-component-padding max-w-[1600px] mx-auto">
+<div class="flex items-center gap-unit cursor-pointer active:opacity-70">
+<span class="material-symbols-outlined text-secondary">precision_manufacturing</span>
+<span class="font-label-md text-label-md tracking-[0.2em] text-on-surface uppercase ml-2">RACECRAFT</span>
+</div>
+<nav class="hidden md:flex items-center gap-section-gap">
+<a class="font-label-md text-label-md text-primary border-b border-primary hover:text-primary transition-colors duration-300" href="#">TELEMETRY</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">DYNAMICS</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">ENGINE</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">LOGS</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2 font-label-md text-label-md uppercase tracking-wider rounded-DEFAULT hover:opacity-90 transition-all">
+                SYSTEM_LIVE
+            </button>
+</div>
+</header>
+<main class="relative">
+<!-- CHAPTER 1: HERO -->
+<section class="relative min-h-[200vh] z-10" id="hero">
+<div class="sticky top-0 h-screen flex flex-col items-center justify-center text-center px-container-margin overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-40">
+
+</div>
+<div class="relative z-10 transition-all duration-1000 transform translate-y-0" id="hero-content">
+<h1 class="font-display-lg text-display-lg uppercase tracking-tighter mb-4 max-w-4xl mx-auto">
+                        RACECRAFT <span class="text-outline-variant">—</span> FROM FAN TO ENGINEER
+                    </h1>
+<p class="font-label-md text-label-md text-on-surface-variant tracking-[0.3em] uppercase mb-12">
+                        Precision Analytics for the Competitive Edge
+                    </p>
+<button class="group relative inline-flex items-center gap-4 border border-outline-variant/30 px-8 py-4 hover:border-primary/50 transition-all duration-500" onclick="document.getElementById('reveal-1').scrollIntoView({behavior: 'smooth'})">
+<span class="font-label-md text-label-md tracking-widest uppercase">Begin Analysis</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_right_alt</span>
+</button>
+</div>
+<!-- HERO CAR ASSET -->
+<div class="absolute bottom-0 w-full max-w-7xl h-[60vh] transform translate-y-20 transition-all duration-700 pointer-events-none" id="hero-car">
+<img class="w-full h-full object-contain car-mask" data-alt="A side-profile cinematic photograph of a modern Formula 1 car in a dark, atmospheric wind tunnel setting. The car features matte carbon fiber bodywork with subtle violet and cyan accents. The lighting is low-key, highlighting the aerodynamic curves of the front wing and sidepods. High-fidelity textures, cold engineering aesthetic, 8k resolution, professional racing photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvdeUXWy-T-aDi_NQrs-gAilaNPFAgzvZU0vX9CS1CWQhr_WQhXo9h9UjU11PW4h4AevY5mI0DO7Qo9wQDd9KWOx5TT1wkZFIE-Nzt-8nivILDIJrHi9SyukZH0J6elMKYhCbZV_AZSRrk9rtB-vgfR8U5Ft9qu_v8NZ-wzHk5-iLoAqRB_40AiPrIuueLLBdFrawT0FLphahlzkbMlYom5RmwKSs3hSMTSmK8kHSPFrsQt0txIONt"/>
+</div>
+</div>
+</section>
+<!-- CHAPTER 2-3: THE REVEAL (SYSTEMS) -->
+<section class="relative min-h-[300vh] bg-background" id="reveal-1">
+<!-- Front Wing -->
+<div class="sticky top-0 h-screen flex items-center px-container-margin">
+<div class="grid grid-cols-12 w-full max-w-[1600px] mx-auto items-center">
+<div class="col-span-4 space-y-gutter">
+<div class="inline-block border-l-2 border-secondary pl-4 py-1">
+<span class="font-label-md text-label-md text-secondary uppercase">System 01_A</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg uppercase">Aerodynamic<br/>Front Assembly</h2>
+<div class="space-y-4 pt-4 border-t border-outline-variant/20 max-w-md">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Downforce Load</span>
+<span class="font-label-md text-label-md text-on-surface">1,240 KG</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Angle of Attack</span>
+<span class="font-label-md text-label-md text-on-surface">14.2°</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Drag Coefficient</span>
+<span class="font-label-md text-label-md text-on-surface">0.34 CD</span>
+</div>
+</div>
+</div>
+<div class="col-span-8 relative h-[80vh]">
+<img class="w-full h-full object-contain" data-alt="Macro close-up shot of a Formula 1 front wing endplate and multi-element flaps. The carbon fiber weave is visible and intricate. Cold blue lighting reflects off the polished aerodynamic surfaces. Technical annotations and thin laser lines suggest scanning and analysis. Highly detailed, cinematic professional photography, technical engineering focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8vTnFzoLT0seSPNd9CT9OgiENiweaiyfpAMHpCrhZxlIHK7hEcdTu1zA-kJslifKM6vLy46hmdHjNhqV5fIuEKiek_1ruv7A4euc358SDacOx2l7Z8K6Yb843yb6gv-x0BEooS8mvUGm3DFi1YofFCWlB-few9SnYfbwclUSeVuj3g37xQpbmgd6vPnXwFZFoJJVUkxFzPfIgIaPVZfUSIvdSb3NWfT57gVL2tkAaHyZYL_VnJlyq"/>
+</div>
+</div>
+</div>
+<!-- Suspension -->
+<div class="h-screen flex items-center px-container-margin">
+<div class="grid grid-cols-12 w-full max-w-[1600px] mx-auto items-center">
+<div class="col-span-7 relative h-[80vh]">
+<img class="w-full h-full object-contain" data-alt="Technical visualization of a pull-rod suspension system on a racing car. Exposed carbon fiber arms, titanium fasteners, and a complex damper assembly are shown. The mood is clinical and high-tech, using a palette of dark grays, steel, and subtle violet highlights. The setting is a clean, dark laboratory or garage bay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJxmYWSOzPwO4duMOij1SpCwQjDz7b49vmCPAJPIVTnfUDFK8RVEzwtShfPYWMlo-egCM1c63Bn12B1p3ozY5MKf6mipxpN6THNfOkcZEZfToqzoxslCQp-5pns-gvaTEmF4IIAiarmXQ98UhW18CqFpSE8udlbOpYfOyZ3FT5EVH4cgikwiCHDdpLrkNIQUt7hWodycTfCI8R_mfPJkdFY01aUjWQhd0vLLAYoW35Bd5RxjG-Zxjj"/>
+</div>
+<div class="col-span-5 space-y-gutter pl-12">
+<div class="inline-block border-l-2 border-secondary pl-4 py-1">
+<span class="font-label-md text-label-md text-secondary uppercase">System 02_B</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg uppercase">Active Dynamics<br/>Kinematics</h2>
+<div class="space-y-4 pt-4 border-t border-outline-variant/20">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                Integrated pull-rod geometry optimized for transient response and vertical load management. Real-time hydraulic dampening adjustment based on track surface telemetry.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CHAPTER 4: THE SHIFT (TELEMETRY CONSTRUCTION) -->
+<section class="relative min-h-[200vh] bg-surface-container-lowest" id="telemetry-shift">
+<div class="sticky top-0 h-screen flex flex-col justify-center px-container-margin overflow-hidden">
+<div class="max-w-[1600px] mx-auto w-full grid grid-cols-4 gap-gutter mb-section-gap">
+<!-- Construction Cards -->
+<div class="border border-outline-variant/10 p-component-padding bg-surface/30 backdrop-blur-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Speed (km/h)</span>
+<span class="font-label-md text-label-md text-secondary">324.8</span>
+</div>
+<div class="h-32 w-full overflow-hidden relative">
+<svg class="w-full h-full" viewbox="0 0 400 100">
+<path class="telemetry-line" d="M0 80 Q 100 20 200 60 T 400 30" fill="none" stroke="#38BDF8" stroke-width="2"></path>
+<path d="M0 80 Q 100 20 200 60 T 400 30 V 100 H 0 Z" fill="url(#grad1)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#38BDF8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#38BDF8;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<div class="border border-outline-variant/10 p-component-padding bg-surface/30 backdrop-blur-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Throttle (%)</span>
+<span class="font-label-md text-label-md text-primary">100.0</span>
+</div>
+<div class="h-32 w-full overflow-hidden relative">
+<svg class="w-full h-full" viewbox="0 0 400 100">
+<path class="telemetry-line" d="M0 90 L 50 90 L 100 10 L 400 10" fill="none" stroke="#8B5CF6" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="border border-outline-variant/10 p-component-padding bg-surface/30 backdrop-blur-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Brake (bar)</span>
+<span class="font-label-md text-label-md text-error">0.0</span>
+</div>
+<div class="h-32 w-full overflow-hidden relative">
+<svg class="w-full h-full" viewbox="0 0 400 100">
+<path class="telemetry-line" d="M0 95 L 400 95" fill="none" stroke="#ffb4ab" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="border border-outline-variant/10 p-component-padding bg-surface/30 backdrop-blur-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">RPM</span>
+<span class="font-label-md text-label-md text-on-surface">11,250</span>
+</div>
+<div class="h-32 w-full overflow-hidden relative">
+<svg class="w-full h-full" viewbox="0 0 400 100">
+<path class="telemetry-line" d="M0 50 Q 50 10 100 50 T 200 50 T 300 50 T 400 50" fill="none" stroke="#e7e0ed" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="relative h-[40vh] w-full flex justify-center items-center">
+<img class="w-full h-full object-contain" data-alt="A top-down architectural wireframe view of a high-performance racing car chassis. The image is rendered in bright cyan and violet neon-like lines over a dark navy background, resembling a high-tech blueprint or telemetry scanner. Geometric data markers and coordinate grids surround the car. Digital precision and engineering aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5SY26gBUM8EmKbcWFHjzQHhgEHMLwlCseN6cS4znUQ_1sQLXdJhW5mUTPMkxb8onX_Q-1PssMLI1CpbnQFovsevZG7xlTdCankRz-nhQo_cIDIb5OzZSS2Z_BcXIR1KMFpq4eOmS4lE8ULyYdOq2v-wNAHyBy_JSFfqcAMCgg5dWiMUAXikmz4xnI0NLlGZ9JFusmluk66iSg_AY0hRJ5AXiIFtXH1ZfU8Dg7H3-lPHtZbV2-ws7n"/>
+</div>
+</div>
+</section>
+<!-- CHAPTER 5: THE DASHBOARD (FINAL STATE) -->
+<section class="relative h-screen bg-surface-dim overflow-hidden flex" id="dashboard">
+<!-- Navigation Drawer -->
+<aside class="w-[280px] h-full flex flex-col gap-unit p-component-padding bg-surface-dim/95 backdrop-blur-md border-r border-outline-variant/10 shadow-[30px_0_60px_-15px_rgba(0,0,0,0.5)] z-40">
+<div class="mb-8 p-4">
+<span class="font-headline-lg text-headline-lg text-primary">SYSTEM</span>
+<span class="font-label-sm text-label-sm block text-on-surface-variant opacity-50 tracking-[0.2em] mt-1">ANALYSIS_CORE</span>
+</div>
+<div class="flex flex-col gap-unit">
+<button class="flex items-center gap-4 px-4 py-3 bg-primary-container/10 text-primary border-r-2 border-primary transition-all duration-200">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Telemetry</span>
+</button>
+<button class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200">
+<span class="material-symbols-outlined">air</span>
+<span class="font-label-md text-label-md">Aero</span>
+</button>
+<button class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200">
+<span class="material-symbols-outlined">tire_repair</span>
+<span class="font-label-md text-label-md">Tires</span>
+</button>
+<button class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-label-md text-label-md">Engine</span>
+</button>
+</div>
+<div class="mt-auto p-4 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Server Link: OK</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 h-full flex flex-col p-container-margin overflow-y-auto no-scrollbar">
+<!-- Dashboard Content (Bento Grid) -->
+<div class="grid grid-cols-3 gap-gutter flex-1">
+<!-- Live Tracking -->
+<div class="col-span-2 border border-outline-variant/10 bg-surface-container-lowest/50 p-gutter rounded-DEFAULT relative overflow-hidden">
+<div class="flex justify-between items-center mb-gutter">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest">Global Session Track</h3>
+<div class="flex gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Laps: 12/54</span>
+<span class="font-label-sm text-label-sm text-secondary">Best: 1:34.201</span>
+</div>
+</div>
+<div class="h-full min-h-[400px] w-full flex items-center justify-center">
+<img class="w-full h-full object-contain" data-alt="A stylized 2D schematic of a professional racing circuit layout, illuminated by glowing technical lines on a dark blue-black digital surface. A single bright dot representing the car moves along the track. Surrounding the track are various coordinate data points and sector breakdown charts. Minimalist, high-performance UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz5o0H31ktRyzJEKGJ_q-RgoQ6l8VDZnmeIHdAUxEuUfP7GRe4Jwkol0tDvNmAUoAmkWFhUVpTmbc-zRq-vnxR3VLKS7uLhCXr00cOaHlyxj5ndSa8xn38_wKWM-9Nwj8AyLwqMhw0yhSSHASyXwoKDvEqJIYgrV_nnGvShzYB5pDaFrkoMi2w1RvYtb0M_BsdFRlfd5gB_qKQih8Ir2RpKj8XzMlqRKuqcuGssw9DvNrO1e6PyqJS"/>
+</div>
+</div>
+<!-- Sector Times -->
+<div class="col-span-1 flex flex-col gap-gutter">
+<div class="flex-1 border border-outline-variant/10 bg-surface-container-lowest/50 p-gutter rounded-DEFAULT">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-4">Sector Analysis</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-2 border-b border-outline-variant/10">
+<span class="font-label-sm text-label-sm text-on-surface-variant">S1 (Speed)</span>
+<span class="font-label-md text-label-md text-secondary">28.401</span>
+</div>
+<div class="flex items-center justify-between p-2 border-b border-outline-variant/10">
+<span class="font-label-sm text-label-sm text-on-surface-variant">S2 (Technical)</span>
+<span class="font-label-md text-label-md text-on-surface">35.210</span>
+</div>
+<div class="flex items-center justify-between p-2 border-b border-outline-variant/10">
+<span class="font-label-sm text-label-sm text-on-surface-variant">S3 (Power)</span>
+<span class="font-label-md text-label-md text-on-surface">30.590</span>
+</div>
+</div>
+</div>
+<div class="flex-1 border border-outline-variant/10 bg-surface-container-lowest/50 p-gutter rounded-DEFAULT">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-4">Tire Surface Temp</h3>
+<div class="grid grid-cols-2 gap-4 h-full content-center">
+<div class="text-center">
+<div class="text-secondary font-label-md">92°C</div>
+<div class="text-on-surface-variant font-label-sm uppercase">FL</div>
+</div>
+<div class="text-center">
+<div class="text-secondary font-label-md">94°C</div>
+<div class="text-on-surface-variant font-label-sm uppercase">FR</div>
+</div>
+<div class="text-center">
+<div class="text-secondary font-label-md">108°C</div>
+<div class="text-on-surface-variant font-label-sm uppercase">RL</div>
+</div>
+<div class="text-center">
+<div class="text-secondary font-label-md">110°C</div>
+<div class="text-on-surface-variant font-label-sm uppercase">RR</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Waveform (Scrubber style) -->
+<div class="col-span-3 border border-outline-variant/10 bg-surface-container-lowest/50 p-gutter rounded-DEFAULT h-48 relative group">
+<div class="absolute left-0 top-0 h-full w-[2px] bg-primary z-10 shadow-[0_0_10px_#8B5CF6] pointer-events-none" id="playhead"></div>
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Session Timeline Scrubber</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LAP 12 VIEWPORT</span>
+</div>
+<div class="w-full h-24 bg-surface-dim/50 rounded-DEFAULT overflow-hidden relative">
+
+<svg class="w-full h-full absolute inset-0 preserve-3d" viewbox="0 0 1600 100">
+<path d="M0 50 Q 200 10 400 80 T 800 40 T 1200 90 T 1600 50" fill="none" stroke="#7bd0ff" stroke-width="1.5"></path>
+<path d="M0 60 Q 200 20 400 90 T 800 50 T 1200 80 T 1600 40" fill="none" stroke="#a078ff" stroke-dasharray="4 2" stroke-width="1"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Details -->
+<aside class="w-[320px] h-full bg-surface-container/30 border-l border-outline-variant/10 p-gutter flex flex-col gap-gutter">
+<div class="p-component-padding border border-outline-variant/10 rounded-DEFAULT">
+<h4 class="font-label-md text-label-md text-on-surface mb-2 uppercase">Vehicle State</h4>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between font-label-sm text-on-surface-variant mb-1">
+<span>FUEL REMAINING</span>
+<span>64%</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-on-surface-variant mb-1">
+<span>ERS DEPLOYMENT</span>
+<span>82%</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[82%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-unit">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase px-2">Telemetry Events</h4>
+<div class="p-3 bg-error/10 border-l-2 border-error flex gap-3">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-error">OVERHEAT_WARN</span>
+<span class="text-[10px] text-on-error-container/60">Brake duct temp exceeding 640°C</span>
+</div>
+</div>
+<div class="p-3 bg-surface-container-high/50 border-l-2 border-outline-variant flex gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">info</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm">PIT_READY</span>
+<span class="text-[10px] text-on-surface-variant/60">Tire sets pre-heated to 100°C</span>
+</div>
+</div>
+<div class="p-3 bg-surface-container-high/50 border-l-2 border-outline-variant flex gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">info</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm">LAP_VALIDATED</span>
+<span class="text-[10px] text-on-surface-variant/60">No track limits violation detected</span>
+</div>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-label-md text-label-md uppercase tracking-widest rounded-DEFAULT flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">save</span>
+                    Export Data Packet
+                </button>
+</aside>
+</section>
+</main>
+<!-- FOOTER ANCHOR -->
+<footer class="relative w-full bottom-0 bg-surface-container-lowest border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center px-container-margin py-section-gap max-w-[1600px] mx-auto opacity-60">
+<div class="mb-4 md:mb-0">
+<span class="font-label-md text-label-md text-on-surface tracking-widest uppercase">RACECRAFT TELEMETRY</span>
+<p class="font-label-sm text-label-sm mt-2">© 2024 RACECRAFT TELEMETRY SYSTEMS. PRECISION ENGINEERED.</p>
+</div>
+<div class="flex gap-section-gap">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all duration-300 underline-offset-4" href="#">Documentation</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all duration-300 underline-offset-4" href="#">API</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all duration-300 underline-offset-4" href="#">Security</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all duration-300 underline-offset-4" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and Scroll Logic
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const heroHeight = window.innerHeight;
+            
+            // Hero parallax
+            const heroContent = document.getElementById('hero-content');
+            const heroCar = document.getElementById('hero-car');
+            
+            if (scroll < heroHeight) {
+                const opacity = 1 - (scroll / (heroHeight * 0.7));
+                heroContent.style.opacity = Math.max(opacity, 0);
+                heroContent.style.transform = `translateY(${scroll * 0.5}px)`;
+                
+                const carScale = 1 + (scroll / 2000);
+                const carMove = scroll * 0.2;
+                heroCar.style.transform = `translateY(20px) scale(${carScale}) translateX(${carMove}px)`;
+            }
+
+            // Playhead animation logic mockup
+            const playhead = document.getElementById('playhead');
+            if (playhead) {
+                const rect = playhead.parentElement.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                   // Mock movement based on mouse or scroll
+                }
+            }
+        });
+
+        // Dashboard Interactivity
+        document.addEventListener('mousemove', (e) => {
+            const scrubber = document.querySelector('#dashboard .group');
+            if (scrubber) {
+                const rect = scrubber.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    const relativeX = e.clientX - rect.left;
+                    document.getElementById('playhead').style.left = `${relativeX}px`;
+                }
+            }
+        });
+    </script>
+</body></html>
