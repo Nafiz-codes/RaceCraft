@@ -1,36 +1,25 @@
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
+import Navbar from '@/components/layout/Navbar'
+import Hero from '@/components/sections/Hero'
+import TelemetryPreview from '@/components/sections/TelemetryPreview'
+import DriverComparison from '@/components/sections/DriverComparison'
+import Features from '@/components/sections/Features'
 import type { ReactNode } from 'react'
 
 export default function LandingLayout(): ReactNode {
   return (
     <>
-      <header aria-label="Primary navigation" />
+      <Navbar />
 
       <main>
-        <Section id="hero" spacing="2xl">
-          <Container>
-            <h1>Hero</h1>
-          </Container>
-        </Section>
+        <Hero />
 
-        <Section id="telemetry-preview" spacing="2xl" background="secondary">
-          <Container>
-            <h2>Telemetry Preview</h2>
-          </Container>
-        </Section>
+        <TelemetryPreview />
 
-        <Section id="driver-comparison" spacing="2xl">
-          <Container>
-            <h2>Driver Comparison</h2>
-          </Container>
-        </Section>
+        <DriverComparison />
 
-        <Section id="features" spacing="2xl" background="secondary">
-          <Container>
-            <h2>Features</h2>
-          </Container>
-        </Section>
+        <Features />
       </main>
 
       <footer>
