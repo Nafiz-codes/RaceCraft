@@ -26,7 +26,7 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: 'min-h-12 px-[var(--space-lg)] text-[var(--font-size-body-large)]',
 }
 
-export function Button({
+export default function Button({
   children,
   className,
   disabled,

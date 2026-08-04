@@ -24,7 +24,7 @@ const backgroundClasses: Record<SectionBackground, string> = {
   surface: 'bg-[var(--color-surface)]',
 }
 
-export function Section({
+export default function Section({
   background = 'default',
   children,
   className,

@@ -16,7 +16,7 @@ const maxWidthClasses: Record<ContainerMaxWidth, string> = {
   full: 'max-w-none',
 }
 
-export function Container({
+export default function Container({
   children,
   className,
   maxWidth = '2xl',
