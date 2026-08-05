@@ -4,7 +4,8 @@ import type { ReactNode } from 'react'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
-const sceneUrl = "/spline/redbull.splinecode"
+const sceneUrl =
+  "https://prod.spline.design/gLke6ns11zkDbyzB/scene.splinecode"
 
 export interface SplineHeroHandle {
   readonly application: Application | null
@@ -38,17 +39,23 @@ const SplineHero = memo(forwardRef<SplineHeroHandle>(function SplineHero(_, ref)
   )
 
   const handleLoad = useCallback((application: Application): void => {
-    applicationRef.current = application
-    setIsLoaded(true)
-    console.log(application)
+    applicationRef.current = application;
+
+    // Temporary debugging
+    (window as any).app = application;
+
+    console.log("Spline Application:", application);
+    console.log("Keys:", Object.keys(application));
+
+    setIsLoaded(true);
   }, [])
 
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div aria-hidden="true" className="absolute inset-0 z-0 overflow-hidden">
       <Suspense fallback={<LoadingPlaceholder />}>
         {!isLoaded && <LoadingPlaceholder />}
 
-        <div className="h-full w-full scale-150 transform">
+        <div className="h-full w-full scale-120 transform">
           <Spline
             aria-label="Interactive Formula One car model"
             className="h-full w-full"

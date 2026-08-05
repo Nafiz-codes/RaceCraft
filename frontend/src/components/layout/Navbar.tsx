@@ -29,9 +29,9 @@ export default function Navbar(): ReactNode {
   }, [])
 
   const headerClasses = [
-    'sticky top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-[var(--duration-normal)] ease-[var(--ease-standard)]',
+    'sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-standard)]',
     isScrolled
-      ? 'border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur-sm'
+      ? 'border-[var(--color-border)] bg-[var(--color-background)] shadow-[var(--shadow-sm)]'
       : 'border-transparent bg-transparent',
   ].join(' ')
 
@@ -43,20 +43,20 @@ export default function Navbar(): ReactNode {
   return (
     <header className={headerClasses}>
       <Container>
-        <nav className="flex min-h-16 items-center justify-between" aria-label="Primary navigation">
+        <nav className="flex min-h-[4.5rem] items-center justify-between" aria-label="Primary navigation">
           <a
             href="#hero"
-            className="font-[var(--font-weight-bold)] tracking-[-0.02em] text-[var(--color-text-primary)]"
+            className="text-[var(--font-size-body-large)] font-[var(--font-weight-bold)] tracking-[-0.03em] text-[var(--color-text-primary)]"
           >
             RaceCraft
           </a>
 
-          <div className="hidden items-center gap-[var(--space-lg)] lg:flex">
+          <div className="hidden items-center gap-[var(--space-xl)] lg:flex">
             {navigationLinks.map(({ href, label }) => (
               <a
                 key={label}
                 href={href}
-                className="text-[var(--font-size-small)] font-[var(--font-weight-medium)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                className="border-b border-transparent py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-primary-purple)] hover:text-[var(--color-text-primary)] active:border-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
               >
                 {label}
               </a>
@@ -64,7 +64,12 @@ export default function Navbar(): ReactNode {
           </div>
 
           <div className="hidden lg:block">
-            <Button size="sm">Launch Dashboard</Button>
+            <Button
+              className="tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]"
+              size="sm"
+            >
+              Launch Dashboard
+            </Button>
           </div>
 
           <Button
@@ -90,19 +95,22 @@ export default function Navbar(): ReactNode {
         <div id="landing-navigation" className={mobileMenuClasses}>
           <nav
             aria-label="Mobile navigation"
-            className="flex flex-col gap-[var(--space-sm)] border-t border-[var(--color-border)] py-[var(--space-md)]"
+            className="flex flex-col gap-[var(--space-sm)] border-t border-[var(--color-border)] bg-[var(--color-background)] py-[var(--space-lg)]"
           >
             {navigationLinks.map(({ href, label }) => (
               <a
                 key={label}
                 href={href}
-                className="px-[var(--space-sm)] py-[calc(var(--space-sm)/2)] text-[var(--font-size-small)] font-[var(--font-weight-medium)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                className="border-l-2 border-transparent px-[var(--space-md)] py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-primary-purple)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)] active:border-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {label}
               </a>
             ))}
-            <Button className="mt-[var(--space-sm)] w-full" size="sm">
+            <Button
+              className="mt-[var(--space-sm)] w-full tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]"
+              size="sm"
+            >
               Launch Dashboard
             </Button>
           </nav>

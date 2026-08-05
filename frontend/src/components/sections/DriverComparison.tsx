@@ -20,6 +20,11 @@ const drivers = [
   },
 ] as const
 
+const teamAccentClasses = {
+  'Red Bull Racing': 'bg-[var(--color-primary-purple)]',
+  McLaren: 'bg-[var(--color-warning)]',
+} as const
+
 export default function DriverComparison(): ReactNode {
   return (
     <Section id="driver-comparison" spacing="2xl">
@@ -42,39 +47,47 @@ export default function DriverComparison(): ReactNode {
             {drivers.map((driver) => (
               <article
                 key={driver.name}
-                className="border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-lg)] shadow-[var(--shadow-sm)]"
+                tabIndex={0}
+                className="group relative overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-xl)] shadow-[var(--shadow-sm)] transition-[background-color,border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface-hover)] hover:shadow-[var(--shadow-md)] focus-visible:border-[var(--color-primary-purple)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               >
-                <p className="text-[var(--font-size-small)] font-[var(--font-weight-medium)] text-[var(--color-text-secondary)]">
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 top-0 h-px ${teamAccentClasses[driver.team]}`}
+                />
+
+                <p className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
                   {driver.team}
                 </p>
-                <h3 className="mt-[var(--space-sm)] text-[var(--font-size-heading-5)] leading-[var(--line-height-heading-5)]">
+                <h3 className="mt-[var(--space-md)] text-[var(--font-size-heading-4)] leading-[var(--line-height-heading-4)] text-[var(--color-text-primary)]">
                   {driver.name}
                 </h3>
 
-                <dl className="mt-[var(--space-xl)] grid grid-cols-2 gap-x-[var(--space-lg)] gap-y-[var(--space-md)]">
-                  <div>
-                    <dt className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">
+                <dl className="mt-[var(--space-2xl)]">
+                  <div className="border-y border-[var(--color-border)] py-[var(--space-lg)]">
+                    <dt className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
                       Best Lap
                     </dt>
-                    <dd className="mt-[calc(var(--space-sm)/2)] font-[var(--font-weight-medium)] tabular-nums text-[var(--color-text-primary)]">
+                    <dd className="mt-[var(--space-md)] [font-family:var(--font-family-mono)] text-[length:var(--font-size-heading-1)] font-[var(--font-weight-bold)] leading-[var(--line-height-heading-1)] tabular-nums text-[var(--color-text-primary)]">
                       {driver.bestLap}
                     </dd>
                   </div>
-                  <div>
-                    <dt className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">
-                      Top Speed
-                    </dt>
-                    <dd className="mt-[calc(var(--space-sm)/2)] font-[var(--font-weight-medium)] tabular-nums text-[var(--color-text-primary)]">
-                      {driver.topSpeed}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">
-                      Position
-                    </dt>
-                    <dd className="mt-[calc(var(--space-sm)/2)] font-[var(--font-weight-medium)] tabular-nums text-[var(--color-text-primary)]">
-                      {driver.position}
-                    </dd>
+                  <div className="mt-[var(--space-lg)] grid grid-cols-2 gap-[var(--space-lg)]">
+                    <div>
+                      <dt className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">
+                        Top Speed
+                      </dt>
+                      <dd className="mt-[var(--space-sm)] [font-family:var(--font-family-mono)] font-[var(--font-weight-medium)] tabular-nums text-[var(--color-text-primary)]">
+                        {driver.topSpeed}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">
+                        Position
+                      </dt>
+                      <dd className="mt-[var(--space-sm)] [font-family:var(--font-family-mono)] font-[var(--font-weight-medium)] tabular-nums text-[var(--color-text-primary)]">
+                        {driver.position}
+                      </dd>
+                    </div>
                   </div>
                 </dl>
               </article>

@@ -44,12 +44,17 @@ export default function Features(): ReactNode {
           {features.map((feature) => (
             <article
               key={feature.title}
-              className="border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-lg)] shadow-[var(--shadow-sm)]"
+              tabIndex={0}
+              className="group relative flex min-h-full flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-xl)] shadow-[var(--shadow-sm)] transition-[background-color,border-color,box-shadow] duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface-hover)] hover:shadow-[var(--shadow-md)] focus-visible:border-[var(--color-primary-purple)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-purple)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background-secondary)]"
             >
-              <h3 className="text-[var(--font-size-heading-5)] leading-[var(--line-height-heading-5)]">
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px bg-[var(--color-primary-purple)]"
+              />
+              <h3 className="text-[var(--font-size-heading-4)] leading-[var(--line-height-heading-4)] text-[var(--color-text-primary)]">
                 {feature.title}
               </h3>
-              <p className="mt-[var(--space-md)] text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
+              <p className="mt-[var(--space-lg)] text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
                 {feature.description}
               </p>
             </article>

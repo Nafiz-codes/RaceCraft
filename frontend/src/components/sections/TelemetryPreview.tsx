@@ -8,6 +8,12 @@ const telemetryCards = [
   { label: 'Lap Delta', value: '−0.218 s', detail: 'Ahead of the reference lap' },
 ] as const
 
+const accentClasses = {
+  Speed: 'bg-[var(--color-primary-purple)]',
+  'Tire Temperature': 'bg-[var(--color-warning)]',
+  'Lap Delta': 'bg-[var(--color-success)]',
+} as const
+
 export default function TelemetryPreview(): ReactNode {
   return (
     <Section id="telemetry-preview" spacing="2xl" background="secondary">
@@ -27,15 +33,23 @@ export default function TelemetryPreview(): ReactNode {
             {telemetryCards.map((card) => (
               <article
                 key={card.label}
-                className="border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-lg)] shadow-[var(--shadow-sm)]"
+                className="relative overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] p-[var(--space-xl)] shadow-[var(--shadow-md)]"
               >
-                <p className="text-[var(--font-size-small)] font-[var(--font-weight-medium)] text-[var(--color-text-secondary)]">
-                  {card.label}
-                </p>
-                <p className="mt-[var(--space-lg)] font-[var(--font-weight-semibold)] text-[var(--font-size-heading-4)] leading-[var(--line-height-heading-4)] tabular-nums text-[var(--color-text-primary)]">
-                  {card.value}
-                </p>
-                <p className="mt-[var(--space-sm)] text-[var(--font-size-caption)] leading-[var(--line-height-caption)] text-[var(--color-text-muted)]">
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 top-0 h-px ${accentClasses[card.label]}`}
+                />
+
+                <dl>
+                  <dt className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
+                    {card.label}
+                  </dt>
+                  <dd className="mt-[var(--space-xl)] [font-family:var(--font-family-mono)] text-[length:var(--font-size-heading-2)] font-[var(--font-weight-bold)] leading-[var(--line-height-heading-2)] tabular-nums text-[var(--color-text-primary)]">
+                    {card.value}
+                  </dd>
+                </dl>
+
+                <p className="mt-[var(--space-xl)] border-t border-[var(--color-border)] pt-[var(--space-md)] text-[var(--font-size-caption)] leading-[var(--line-height-caption)] text-[var(--color-text-secondary)]">
                   {card.detail}
                 </p>
               </article>
