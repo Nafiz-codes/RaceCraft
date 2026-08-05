@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 import { gsap } from "@/lib/gsap";
 
@@ -44,13 +45,17 @@ export default function Hero(): ReactNode {
           </p>
 
           <div className="mt-[var(--space-xl)] flex flex-wrap justify-center gap-[var(--space-md)]">
-            <Button size="lg">
-              Explore Platform
-            </Button>
+            <Link to="/dashboard">
+              <Button size="lg">
+                Explore Platform
+              </Button>
+            </Link>
 
-            <Button size="lg" variant="secondary">
-              View Telemetry
-            </Button>
+            <Link to="/dashboard">
+              <Button size="lg" variant="secondary">
+                View Telemetry
+              </Button>
+            </Link>
           </div>
         </div>
       </Container>

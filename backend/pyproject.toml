@@ -1,0 +1,53 @@
+[build-system]
+requires = ["editables>=0.5", "hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "racecraft-api"
+version = "0.1.0"
+description = "RaceCraft's versioned Formula 1 analysis API."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "fastf1>=3.5,<4.0",
+  "pydantic>=2.0,<3.0",
+  "uvicorn[standard]>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.13,<2.0",
+  "ruff>=0.8,<1.0",
+]
+
+[project.scripts]
+racecraft-api = "app.main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.mypy]
+files = ["src"]
+mypy_path = "src"
+python_version = "3.12"
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_return_any = false
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = ["fastf1", "fastf1.*"]
+ignore_missing_imports = true

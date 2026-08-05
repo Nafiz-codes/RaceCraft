@@ -1,0 +1,1 @@
+"""RaceCraft backend application package."""

@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react'
 
+import SessionSelector from '@/components/dashboard/SessionSelector'
+import TelemetryPanel from '@/components/dashboard/TelemetryPanel'
+import useSessionDiscovery from '@/hooks/useSessionDiscovery'
+
 interface DashboardModule {
   id: string
   system: string
@@ -37,18 +41,12 @@ function DashboardModulePanel({ module }: { module: DashboardModule }): ReactNod
 }
 
 export default function MainContent(): ReactNode {
+  const discovery = useSessionDiscovery()
+
   return (
     <main className="min-w-0 overflow-y-auto px-[var(--space-md)] py-[var(--space-md)] sm:px-[var(--space-lg)] sm:py-[var(--space-lg)] lg:px-[var(--space-xl)] lg:py-[var(--space-xl)]">
       <div className="grid gap-[var(--space-md)] lg:grid-cols-12">
-        <DashboardModulePanel
-          module={{
-            id: 'session-selector',
-            system: 'System 1A',
-            title: 'Session Selector',
-            description: 'Choose a season, event, and session to initialize the workspace.',
-            className: 'lg:col-span-8',
-          }}
-        />
+        <SessionSelector discovery={discovery} />
         <DashboardModulePanel
           module={{
             id: 'driver-comparison-module',
@@ -85,15 +83,7 @@ export default function MainContent(): ReactNode {
             className: 'lg:col-span-4',
           }}
         />
-        <DashboardModulePanel
-          module={{
-            id: 'telemetry-module',
-            system: 'System 6F',
-            title: 'Telemetry',
-            description: 'Telemetry channels will be staged here after a driver lap is selected.',
-            className: 'min-h-44 lg:col-span-12',
-          }}
-        />
+        <TelemetryPanel selection={discovery.selection} />
       </div>
     </main>
   )
