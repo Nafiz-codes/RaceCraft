@@ -2,56 +2,35 @@ import { useEffect, useState, type ReactNode } from 'react'
 
 import SessionSelector from '@/components/dashboard/SessionSelector'
 import CircuitView from '@/components/dashboard/CircuitView'
+import CircuitInformationPanel from '@/components/dashboard/CircuitInformationPanel'
+import DriverComparisonPanel from '@/components/dashboard/DriverComparisonPanel'
+import LapAnalysisPanel from '@/components/dashboard/LapAnalysisPanel'
+import WeatherPanel from '@/components/dashboard/WeatherPanel'
 import TelemetryPanel from '@/components/dashboard/TelemetryPanel'
 import useSessionDiscovery from '@/hooks/useSessionDiscovery'
 import useComparisonTelemetry from '@/hooks/useComparisonTelemetry'
 import useDashboardComparison from '@/hooks/useDashboardComparison'
-
-interface DashboardModule {
-  id: string
-  system: string
-  title: string
-  description: string
-  className?: string
-}
-
-function DashboardModulePanel({ module }: { module: DashboardModule }): ReactNode {
-  return (
-    <section
-      id={module.id}
-      aria-labelledby={`${module.id}-title`}
-      className={`flex min-h-48 flex-col border border-[var(--color-border)] bg-[var(--color-background)] p-[var(--space-lg)] shadow-[var(--shadow-sm)] ${module.className ?? ''}`}
-    >
-      <div className="border-l-2 border-[var(--color-primary-purple)] pl-[var(--space-md)]">
-        <p className="[font-family:var(--font-family-mono)] text-[var(--font-size-caption)] uppercase tracking-[0.12em] text-[var(--color-primary-purple)]">
-          {module.system}
-        </p>
-        <h2
-          id={`${module.id}-title`}
-          className="mt-[var(--space-sm)] text-[var(--font-size-heading-5)] leading-[var(--line-height-heading-5)] text-[var(--color-text-primary)]"
-        >
-          {module.title}
-        </h2>
-      </div>
-
-      <div className="mt-auto border-t border-[var(--color-border)] pt-[var(--space-lg)]">
-        <p className="max-w-md text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
-          {module.description}
-        </p>
-      </div>
-    </section>
-  )
-}
+import useSessionWeather from '@/hooks/useSessionWeather'
+import useCircuitInformation from '@/hooks/useCircuitInformation'
 
 export default function MainContent(): ReactNode {
   const discovery = useSessionDiscovery()
+  const secondaryDiscovery = useSessionDiscovery('secondary')
   const telemetry = useComparisonTelemetry()
+  const weather = useSessionWeather(discovery.selection)
+  const circuitInformation = useCircuitInformation(discovery.selection)
   const { secondarySelection } = useDashboardComparison()
   const [selectedTelemetryIndex, setSelectedTelemetryIndex] = useState(0)
   const selectedDriver = discovery.drivers.find(
     (driver) => driver.abbreviation === discovery.selection.driver,
   )
   const selectedLap = discovery.laps.find((lap) => lap.lapNumber === discovery.selection.lap)
+  const selectedSecondaryDriver = secondaryDiscovery.drivers.find(
+    (driver) => driver.abbreviation === secondaryDiscovery.selection.driver,
+  )
+  const selectedSecondaryLap = secondaryDiscovery.laps.find(
+    (lap) => lap.lapNumber === secondaryDiscovery.selection.lap,
+  )
 
   useEffect(() => {
     setSelectedTelemetryIndex(0)
@@ -60,38 +39,27 @@ export default function MainContent(): ReactNode {
   return (
     <main className="min-w-0 overflow-y-auto px-[var(--space-md)] py-[var(--space-md)] sm:px-[var(--space-lg)] sm:py-[var(--space-lg)] lg:px-[var(--space-xl)] lg:py-[var(--space-xl)]">
       <div className="grid gap-[var(--space-md)] lg:grid-cols-12">
-        <SessionSelector discovery={discovery} />
-        <DashboardModulePanel
-          module={{
-            id: 'driver-comparison-module',
-            system: 'System 2B',
-            title: 'Driver Comparison',
-            description: 'Configure the drivers and laps that will be compared.',
-            className: 'lg:col-span-4',
-          }}
+        <SessionSelector discovery={discovery} secondaryDiscovery={secondaryDiscovery} />
+        <DriverComparisonPanel
+          comparisonEnabled={telemetry.comparisonEnabled}
+          primaryDriver={selectedDriver}
+          primaryLap={selectedLap}
+          primaryTelemetry={telemetry.primaryTelemetry}
+          secondaryDriver={selectedSecondaryDriver}
+          secondaryLap={selectedSecondaryLap}
+          secondaryTelemetry={telemetry.secondaryTelemetry}
         />
         <CircuitView
           selection={discovery.selection}
           telemetry={telemetry.primaryTelemetry}
           selectedTelemetryIndex={selectedTelemetryIndex}
         />
-        <DashboardModulePanel
-          module={{
-            id: 'lap-analysis',
-            system: 'System 4D',
-            title: 'Lap Analysis',
-            description: 'Lap and sector context will appear for the selected reference.',
-            className: 'lg:col-span-4',
-          }}
-        />
-        <DashboardModulePanel
-          module={{
-            id: 'weather-module',
-            system: 'System 5E',
-            title: 'Weather',
-            description: 'Track and atmospheric conditions will appear with session data.',
-            className: 'lg:col-span-4',
-          }}
+        <LapAnalysisPanel lap={selectedLap} telemetry={telemetry.primaryTelemetry} />
+        <WeatherPanel weather={weather.data?.weather} error={weather.error} isLoading={weather.isLoading} />
+        <CircuitInformationPanel
+          circuit={circuitInformation.data?.circuit}
+          error={circuitInformation.error}
+          isLoading={circuitInformation.isLoading}
         />
         <TelemetryPanel
           selection={discovery.selection}

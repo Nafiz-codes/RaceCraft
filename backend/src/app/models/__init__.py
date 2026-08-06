@@ -2,6 +2,8 @@
 
 from app.models.api import ApiError, ErrorResponse, ResponseMeta, SuccessResponse
 from app.models.discovery import (
+    CircuitInformationModel,
+    CircuitInformationPayload,
     CircuitPayload,
     CircuitPointModel,
     DriverModel,
@@ -16,12 +18,16 @@ from app.models.discovery import (
     SessionsPayload,
     TelemetryModel,
     TelemetryPayload,
+    WeatherModel,
+    WeatherPayload,
 )
 
 __all__ = [
     "ApiError",
     "CircuitPayload",
     "CircuitPointModel",
+    "CircuitInformationModel",
+    "CircuitInformationPayload",
     "DriverModel",
     "DriversPayload",
     "ErrorResponse",
@@ -37,4 +43,6 @@ __all__ = [
     "SuccessResponse",
     "TelemetryModel",
     "TelemetryPayload",
+    "WeatherModel",
+    "WeatherPayload",
 ]

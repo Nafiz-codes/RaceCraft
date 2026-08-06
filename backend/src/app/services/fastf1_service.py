@@ -100,6 +100,30 @@ class FastF1Service:
         self._validate_identifier(session, "session")
         return self._repository.load_circuit_geometry_records(season, event, session)
 
+    def load_session_weather_record(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> dict[str, object] | None:
+        """Load the selected session's weather reference reading."""
+        self._validate_season(season)
+        self._validate_identifier(event, "event")
+        self._validate_identifier(session, "session")
+        return self._repository.load_session_weather_record(season, event, session)
+
+    def load_circuit_information_record(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> dict[str, object]:
+        """Load provider circuit metadata without exposing provider objects."""
+        self._validate_season(season)
+        self._validate_identifier(event, "event")
+        self._validate_identifier(session, "session")
+        return self._repository.load_circuit_information_record(season, event, session)
+
     @staticmethod
     def _validate_season(season: int) -> None:
         if season < 1950:

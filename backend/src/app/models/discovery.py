@@ -121,3 +121,40 @@ class CircuitPayload(BaseModel):
     """Circuit geometry needed to render a selected session's track layout."""
 
     points: list[CircuitPointModel]
+
+
+class WeatherModel(BaseModel):
+    """One recorded session weather reading required by the workspace."""
+
+    airTemperature: float
+    trackTemperature: float
+    humidity: float = Field(ge=0, le=100)
+    windSpeed: float
+    windDirection: int = Field(ge=0, le=360)
+    pressure: float
+    rainfall: bool
+
+
+class WeatherPayload(BaseModel):
+    """Weather reference data for one selected Formula 1 session."""
+
+    weather: WeatherModel
+
+
+class CircuitInformationModel(BaseModel):
+    """Provider-backed event and circuit metadata for the workspace."""
+
+    circuitName: str | None = None
+    eventName: str | None = None
+    country: str | None = None
+    location: str | None = None
+    circuitLength: float | None = Field(default=None, ge=0)
+    numberOfCorners: int | None = Field(default=None, ge=0)
+    sessionName: str | None = None
+    eventDate: Date | None = None
+
+
+class CircuitInformationPayload(BaseModel):
+    """Circuit information for one selected Formula 1 session."""
+
+    circuit: CircuitInformationModel

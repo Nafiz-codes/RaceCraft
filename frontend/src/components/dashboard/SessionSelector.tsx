@@ -7,6 +7,7 @@ type DiscoveryState = ReturnType<typeof useSessionDiscovery>
 
 interface SessionSelectorProps {
   discovery: DiscoveryState
+  secondaryDiscovery: DiscoveryState
 }
 
 interface SelectionFieldsProps {
@@ -121,9 +122,8 @@ function SelectionGroup({ label, discovery }: { label: 'Primary' | 'Secondary'; 
   )
 }
 
-export default function SessionSelector({ discovery }: SessionSelectorProps): ReactNode {
+export default function SessionSelector({ discovery, secondaryDiscovery }: SessionSelectorProps): ReactNode {
   const { comparisonEnabled, setComparisonEnabled } = useDashboardComparison()
-  const secondaryDiscovery = useSessionDiscovery('secondary')
 
   return (
     <section id="session-selector" aria-labelledby="session-selector-title" className="flex min-h-48 flex-col border border-[var(--color-border)] bg-[var(--color-background)] p-[var(--space-lg)] shadow-[var(--shadow-sm)] lg:col-span-8">

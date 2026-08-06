@@ -107,3 +107,38 @@ class FastF1Repository:
 
         geometry = reference_lap.get_telemetry()
         return geometry.loc[:, CIRCUIT_GEOMETRY_COLUMNS].to_dict(orient="records")
+
+    def load_session_weather_record(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> dict[str, object] | None:
+        """Load the first recorded weather reading for a selected session."""
+        fastf1_session = self.load_session(season, event, session)
+        fastf1_session.load(laps=False, telemetry=False, weather=True, messages=False)
+        if fastf1_session.weather_data.empty:
+            return None
+        return fastf1_session.weather_data.iloc[0].to_dict()
+
+    def load_circuit_information_record(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> dict[str, object]:
+        """Load provider-backed event, session, and circuit metadata once."""
+        fastf1_session = self.load_session(season, event, session)
+        fastf1_session.load(laps=True, telemetry=False, weather=False, messages=False)
+        circuit_info = fastf1_session.get_circuit_info()
+
+        return {
+            "CircuitName": None,
+            "EventName": fastf1_session.event.get("EventName"),
+            "Country": fastf1_session.event.get("Country"),
+            "Location": fastf1_session.event.get("Location"),
+            "CircuitLength": None,
+            "NumberOfCorners": len(circuit_info.corners),
+            "SessionName": fastf1_session.name,
+            "EventDate": fastf1_session.event.get("EventDate"),
+        }
