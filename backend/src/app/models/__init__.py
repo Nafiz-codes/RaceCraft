@@ -2,6 +2,8 @@
 
 from app.models.api import ApiError, ErrorResponse, ResponseMeta, SuccessResponse
 from app.models.discovery import (
+    CircuitPayload,
+    CircuitPointModel,
     DriverModel,
     DriversPayload,
     EventModel,
@@ -18,6 +20,8 @@ from app.models.discovery import (
 
 __all__ = [
     "ApiError",
+    "CircuitPayload",
+    "CircuitPointModel",
     "DriverModel",
     "DriversPayload",
     "ErrorResponse",

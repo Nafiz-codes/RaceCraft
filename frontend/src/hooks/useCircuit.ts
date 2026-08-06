@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { getTelemetry } from '@/services/api/telemetry'
-import type { TelemetryPayload } from '@/types/telemetry'
+import { getCircuit } from '@/services/api/circuit'
+import type { CircuitPayload } from '@/types/circuit'
 
-export interface TelemetrySelection {
+export interface CircuitSelection {
   season: number | null
   event: string | null
   session: string | null
-  driver: string | null
-  lap: number | null
 }
 
 function getErrorMessage(error: unknown): string {
@@ -19,21 +17,14 @@ function isAbortedRequest(error: unknown): boolean {
   return error instanceof Error && error.name === 'AbortError'
 }
 
-export default function useTelemetry(selection: TelemetrySelection, enabled = true) {
-  const { driver, event, lap, season, session } = selection
-  const [data, setData] = useState<TelemetryPayload | null>(null)
+export default function useCircuit(selection: CircuitSelection) {
+  const { event, season, session } = selection
+  const [data, setData] = useState<CircuitPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (
-      !enabled ||
-      season === null ||
-      event === null ||
-      session === null ||
-      driver === null ||
-      lap === null
-    ) {
+    if (season === null || event === null || session === null) {
       setData(null)
       setError(null)
       setIsLoading(false)
@@ -45,7 +36,7 @@ export default function useTelemetry(selection: TelemetrySelection, enabled = tr
     setError(null)
     setIsLoading(true)
 
-    getTelemetry({ season, event, session, driver, lap }, controller.signal)
+    getCircuit({ season, event, session }, controller.signal)
       .then((payload) => {
         if (!controller.signal.aborted) {
           setData(payload)
@@ -63,7 +54,7 @@ export default function useTelemetry(selection: TelemetrySelection, enabled = tr
       })
 
     return () => controller.abort()
-  }, [driver, enabled, event, lap, season, session])
+  }, [event, season, session])
 
   return { data, error, isLoading }
 }

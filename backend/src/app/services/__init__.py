@@ -1,5 +1,6 @@
 """Domain services independent from HTTP and provider implementations."""
 
+from app.services.circuit_service import CircuitService
 from app.services.driver_discovery_service import DriverDiscoveryService
 from app.services.fastf1_service import FastF1Service
 from app.services.lap_discovery_service import LapDiscoveryService
@@ -8,6 +9,7 @@ from app.services.telemetry_service import TelemetryService
 
 __all__ = [
     "DriverDiscoveryService",
+    "CircuitService",
     "FastF1Service",
     "LapDiscoveryService",
     "SessionDiscoveryService",

@@ -1,8 +1,11 @@
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 import SessionSelector from '@/components/dashboard/SessionSelector'
+import CircuitView from '@/components/dashboard/CircuitView'
 import TelemetryPanel from '@/components/dashboard/TelemetryPanel'
 import useSessionDiscovery from '@/hooks/useSessionDiscovery'
+import useComparisonTelemetry from '@/hooks/useComparisonTelemetry'
+import useDashboardComparison from '@/hooks/useDashboardComparison'
 
 interface DashboardModule {
   id: string
@@ -42,6 +45,17 @@ function DashboardModulePanel({ module }: { module: DashboardModule }): ReactNod
 
 export default function MainContent(): ReactNode {
   const discovery = useSessionDiscovery()
+  const telemetry = useComparisonTelemetry()
+  const { secondarySelection } = useDashboardComparison()
+  const [selectedTelemetryIndex, setSelectedTelemetryIndex] = useState(0)
+  const selectedDriver = discovery.drivers.find(
+    (driver) => driver.abbreviation === discovery.selection.driver,
+  )
+  const selectedLap = discovery.laps.find((lap) => lap.lapNumber === discovery.selection.lap)
+
+  useEffect(() => {
+    setSelectedTelemetryIndex(0)
+  }, [telemetry.primaryTelemetry])
 
   return (
     <main className="min-w-0 overflow-y-auto px-[var(--space-md)] py-[var(--space-md)] sm:px-[var(--space-lg)] sm:py-[var(--space-lg)] lg:px-[var(--space-xl)] lg:py-[var(--space-xl)]">
@@ -56,14 +70,10 @@ export default function MainContent(): ReactNode {
             className: 'lg:col-span-4',
           }}
         />
-        <DashboardModulePanel
-          module={{
-            id: 'circuit-view',
-            system: 'System 3C',
-            title: 'Circuit View',
-            description: 'Circuit context will be available once a session is loaded.',
-            className: 'min-h-[26rem] lg:col-span-8 lg:row-span-2',
-          }}
+        <CircuitView
+          selection={discovery.selection}
+          telemetry={telemetry.primaryTelemetry}
+          selectedTelemetryIndex={selectedTelemetryIndex}
         />
         <DashboardModulePanel
           module={{
@@ -83,7 +93,20 @@ export default function MainContent(): ReactNode {
             className: 'lg:col-span-4',
           }}
         />
-        <TelemetryPanel selection={discovery.selection} />
+        <TelemetryPanel
+          selection={discovery.selection}
+          driver={selectedDriver}
+          lap={selectedLap}
+          telemetry={telemetry.primaryTelemetry}
+          secondaryTelemetry={telemetry.secondaryTelemetry}
+          comparisonEnabled={telemetry.comparisonEnabled}
+          primaryDriverAbbreviation={discovery.selection.driver}
+          secondaryDriverAbbreviation={secondarySelection.driver}
+          error={telemetry.primaryError}
+          isLoading={telemetry.primaryLoading}
+          selectedTelemetryIndex={selectedTelemetryIndex}
+          onTelemetryIndexChange={setSelectedTelemetryIndex}
+        />
       </div>
     </main>
   )

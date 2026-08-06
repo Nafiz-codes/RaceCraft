@@ -23,6 +23,8 @@ TELEMETRY_COLUMNS = (
     "Z",
 )
 
+CIRCUIT_GEOMETRY_COLUMNS = ("X", "Y", "Distance")
+
 
 class FastF1Repository:
     """Thin provider adapter for loading FastF1 resources."""
@@ -89,3 +91,19 @@ class FastF1Repository:
 
         telemetry = selected_laps.iloc[0].get_telemetry()
         return telemetry.loc[:, TELEMETRY_COLUMNS].to_dict(orient="records")
+
+    def load_circuit_geometry_records(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> list[dict[str, object]]:
+        """Load ordered provider circuit geometry from the session reference lap."""
+        fastf1_session = self.load_session(season, event, session)
+        fastf1_session.load(laps=True, telemetry=True, weather=False, messages=False)
+        reference_lap = fastf1_session.laps.pick_fastest()
+        if reference_lap is None:
+            return []
+
+        geometry = reference_lap.get_telemetry()
+        return geometry.loc[:, CIRCUIT_GEOMETRY_COLUMNS].to_dict(orient="records")

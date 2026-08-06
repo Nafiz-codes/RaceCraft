@@ -3,6 +3,7 @@
 from functools import lru_cache
 
 from app.repositories.fastf1_repository import FastF1Repository
+from app.services.circuit_service import CircuitService
 from app.services.driver_discovery_service import DriverDiscoveryService
 from app.services.fastf1_service import FastF1Service
 from app.services.lap_discovery_service import LapDiscoveryService
@@ -14,6 +15,12 @@ from app.services.telemetry_service import TelemetryService
 def get_fastf1_service() -> FastF1Service:
     """Build the process-wide FastF1 service used by application startup and routes."""
     return FastF1Service(repository=FastF1Repository())
+
+
+@lru_cache(maxsize=1)
+def get_circuit_service() -> CircuitService:
+    """Build the circuit service from the shared FastF1 dependency."""
+    return CircuitService(fastf1_service=get_fastf1_service())
 
 
 @lru_cache(maxsize=1)

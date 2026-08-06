@@ -107,3 +107,17 @@ class TelemetryPayload(BaseModel):
     """Ordered raw telemetry samples for one selected driver lap."""
 
     telemetry: list[TelemetryModel]
+
+
+class CircuitPointModel(BaseModel):
+    """One ordered point in the provider's circuit geometry trace."""
+
+    x: float
+    y: float
+    distance: float = Field(ge=0)
+
+
+class CircuitPayload(BaseModel):
+    """Circuit geometry needed to render a selected session's track layout."""
+
+    points: list[CircuitPointModel]

@@ -1,15 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 
+import useDashboardComparison from "@/hooks/useDashboardComparison"
 import { getDrivers, getEvents, getLaps, getSeasons, getSessions } from "@/services/api/discovery"
 import type { Driver, Event, Lap, Season, Session } from "@/types/discovery"
-
-interface DiscoverySelection {
-  season: number | null
-  event: string | null
-  session: string | null
-  driver: string | null
-  lap: number | null
-}
 
 interface DiscoveryLoading {
   drivers: boolean
@@ -27,6 +20,8 @@ interface DiscoveryErrors {
   laps: string | null
 }
 
+export type DiscoverySelectionRole = 'primary' | 'secondary'
+
 function getErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "The RaceCraft API request failed."
 }
@@ -35,19 +30,22 @@ function isAbortedRequest(error: unknown): boolean {
   return error instanceof Error && error.name === "AbortError"
 }
 
-export default function useSessionDiscovery() {
+export default function useSessionDiscovery(selectionRole: DiscoverySelectionRole = 'primary') {
+  const {
+    comparisonEnabled,
+    primarySelection,
+    secondarySelection,
+    setPrimarySelection,
+    setSecondarySelection,
+  } = useDashboardComparison()
+  const isActive = selectionRole === 'primary' || comparisonEnabled
+  const selection = selectionRole === 'primary' ? primarySelection : secondarySelection
+  const setSelection = selectionRole === 'primary' ? setPrimarySelection : setSecondarySelection
   const [seasons, setSeasons] = useState<Season[]>([])
   const [events, setEvents] = useState<Event[]>([])
   const [sessions, setSessions] = useState<Session[]>([])
   const [drivers, setDrivers] = useState<Driver[]>([])
   const [laps, setLaps] = useState<Lap[]>([])
-  const [selection, setSelection] = useState<DiscoverySelection>({
-    season: null,
-    event: null,
-    session: null,
-    driver: null,
-    lap: null,
-  })
   const [loading, setLoading] = useState<DiscoveryLoading>({
     seasons: false,
     events: false,
@@ -64,6 +62,11 @@ export default function useSessionDiscovery() {
   })
 
   useEffect(() => {
+    if (!isActive) {
+      setSeasons([])
+      return undefined
+    }
+
     const controller = new AbortController()
     setLoading((current) => ({ ...current, seasons: true }))
     setErrors((current) => ({ ...current, seasons: null }))
@@ -86,10 +89,10 @@ export default function useSessionDiscovery() {
       })
 
     return () => controller.abort()
-  }, [])
+  }, [isActive])
 
   useEffect(() => {
-    if (selection.season === null) {
+    if (!isActive || selection.season === null) {
       setEvents([])
       return undefined
     }
@@ -116,10 +119,10 @@ export default function useSessionDiscovery() {
       })
 
     return () => controller.abort()
-  }, [selection.season])
+  }, [isActive, selection.season])
 
   useEffect(() => {
-    if (selection.season === null || selection.event === null) {
+    if (!isActive || selection.season === null || selection.event === null) {
       setSessions([])
       return undefined
     }
@@ -146,10 +149,10 @@ export default function useSessionDiscovery() {
       })
 
     return () => controller.abort()
-  }, [selection.event, selection.season])
+  }, [isActive, selection.event, selection.season])
 
   useEffect(() => {
-    if (selection.season === null || selection.event === null || selection.session === null) {
+    if (!isActive || selection.season === null || selection.event === null || selection.session === null) {
       setDrivers([])
       return undefined
     }
@@ -176,10 +179,11 @@ export default function useSessionDiscovery() {
       })
 
     return () => controller.abort()
-  }, [selection.event, selection.season, selection.session])
+  }, [isActive, selection.event, selection.season, selection.session])
 
   useEffect(() => {
     if (
+      !isActive ||
       selection.season === null ||
       selection.event === null ||
       selection.session === null ||
@@ -217,7 +221,7 @@ export default function useSessionDiscovery() {
       })
 
     return () => controller.abort()
-  }, [selection.driver, selection.event, selection.season, selection.session])
+  }, [isActive, selection.driver, selection.event, selection.season, selection.session])
 
   const selectSeason = useCallback((season: number | null) => {
     setSelection({ season, event: null, session: null, driver: null, lap: null })
@@ -225,29 +229,29 @@ export default function useSessionDiscovery() {
     setSessions([])
     setDrivers([])
     setLaps([])
-  }, [])
+  }, [setSelection])
 
   const selectEvent = useCallback((event: string | null) => {
     setSelection((current) => ({ ...current, event, session: null, driver: null, lap: null }))
     setSessions([])
     setDrivers([])
     setLaps([])
-  }, [])
+  }, [setSelection])
 
   const selectSession = useCallback((session: string | null) => {
     setSelection((current) => ({ ...current, session, driver: null, lap: null }))
     setDrivers([])
     setLaps([])
-  }, [])
+  }, [setSelection])
 
   const selectDriver = useCallback((driver: string | null) => {
     setSelection((current) => ({ ...current, driver, lap: null }))
     setLaps([])
-  }, [])
+  }, [setSelection])
 
   const selectLap = useCallback((lap: number | null) => {
     setSelection((current) => ({ ...current, lap }))
-  }, [])
+  }, [setSelection])
 
   return {
     drivers,
