@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
 
 type SectionSpacing = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 type SectionBackground = 'default' | 'secondary' | 'surface'
@@ -24,20 +24,22 @@ const backgroundClasses: Record<SectionBackground, string> = {
   surface: 'bg-[var(--color-surface)]',
 }
 
-export default function Section({
+const Section = forwardRef<HTMLElement, SectionProps>(function Section({
   background = 'default',
   children,
   className,
   spacing = 'xl',
   ...props
-}: SectionProps): ReactNode {
+}, ref): ReactNode {
   const classes = [spacingClasses[spacing], backgroundClasses[background], className]
     .filter(Boolean)
     .join(' ')
 
   return (
-    <section {...props} className={classes}>
+    <section ref={ref} {...props} className={classes}>
       {children}
     </section>
   )
-}
+})
+
+export default Section
