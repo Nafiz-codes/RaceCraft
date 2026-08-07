@@ -28,7 +28,7 @@ export default function CornerAnalysisPanel({
   )
 
   if (isLoading) {
-    content = <p className="text-[var(--font-size-small)] text-[var(--color-text-secondary)]">Loading corners...</p>
+    content = <div className="rc-skeleton h-48 border border-[var(--color-border)]" aria-label="Loading circuit corners" />
   } else if (error) {
     content = <p className="text-[var(--font-size-small)] text-[var(--color-error)]">{error}</p>
   } else if (corners && corners.length > 0) {
@@ -47,7 +47,7 @@ export default function CornerAnalysisPanel({
             {corners.map((corner) => {
               const isSelected = corner.cornerNumber === selectedCornerNumber
               return (
-                <tr key={corner.cornerNumber} className="border-t border-[var(--color-border)]">
+                <tr key={corner.cornerNumber} className="border-t border-[var(--color-border)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-surface)]">
                   <td className="p-0">
                     <button
                       type="button"

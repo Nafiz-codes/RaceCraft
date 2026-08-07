@@ -53,7 +53,7 @@ function SectorRow({
     : 'grid-cols-[3rem_minmax(0,1fr)]'
 
   return (
-    <div className={`grid items-center gap-x-[var(--space-sm)] gap-y-1 border border-[var(--color-border)] p-[var(--space-sm)] [font-family:var(--font-family-mono)] text-[var(--font-size-caption)] ${columnLayout}`}>
+    <div className={`grid items-center gap-x-[var(--space-sm)] gap-y-1 border border-[var(--color-border)] p-[var(--space-md)] [font-family:var(--font-family-mono)] text-[var(--font-size-caption)] transition-[background-color,border-color] duration-[var(--duration-fast)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface)] ${columnLayout}`}>
       <span className="whitespace-nowrap uppercase tracking-[0.1em] text-[var(--color-text-muted)]">{label}</span>
       <span className={`min-w-0 truncate whitespace-nowrap ${primaryIsFaster ? 'text-[var(--color-success)]' : 'text-[var(--color-text-primary)]'}`}>
         {primaryTime ?? '—'}
@@ -122,7 +122,7 @@ export default function SectorAnalysisPanel({ comparisonEnabled, primaryLap, sec
           </div>
         </div>
       ) : (
-        <p className="mt-auto border-t border-[var(--color-border)] pt-[var(--space-lg)] text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">Select a primary lap to load official sector timing.</p>
+        <div className="rc-empty-state mt-[var(--space-lg)]"><p className="text-[var(--font-size-small)] leading-[var(--line-height-small)]">No Lap Selected<br /><span className="text-[var(--font-size-caption)] text-[var(--color-text-muted)]">Select a primary lap to load official sector timing.</span></p></div>
       )}
     </section>
   )

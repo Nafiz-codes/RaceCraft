@@ -3,6 +3,8 @@ import { useState, type ReactNode } from 'react'
 import TelemetryChart, { type TelemetryChannel } from '@/components/dashboard/TelemetryChart'
 import DeltaTimeChart from '@/components/dashboard/DeltaTimeChart'
 import PlaybackControls from '@/components/dashboard/PlaybackControls'
+import EngineeringTimeline from '@/components/dashboard/EngineeringTimeline'
+import type { CircuitCorner } from '@/types/corner'
 import { type TelemetrySelection } from '@/hooks/useTelemetry'
 import type { Driver, Lap } from '@/types/discovery'
 import type { TelemetryModel } from '@/types/telemetry'
@@ -13,6 +15,7 @@ interface TelemetryPanelProps {
   selection: TelemetrySelection
   driver: Driver | undefined
   lap: Lap | undefined
+  corners: CircuitCorner[] | undefined
   telemetry: TelemetryModel[] | undefined
   secondaryTelemetry: TelemetryModel[] | undefined
   comparisonEnabled: boolean
@@ -41,6 +44,7 @@ export default function TelemetryPanel({
   selection,
   driver,
   lap,
+  corners,
   telemetry,
   secondaryTelemetry,
   comparisonEnabled,
@@ -168,6 +172,7 @@ export default function TelemetryPanel({
           onRestart={onRestart}
           onPlaybackSpeedChange={onPlaybackSpeedChange}
         />
+        <EngineeringTimeline corners={corners} lap={lap} selectedTelemetryIndex={selectedTelemetryIndex} telemetry={telemetry} />
       </>
     )
   }

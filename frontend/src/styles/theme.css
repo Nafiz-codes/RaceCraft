@@ -1,6 +1,8 @@
 :root {
   /* Color */
   --color-primary-purple: #8b5cf6;
+  --color-f1-red: #e10600;
+  --color-f1-red-hover: #b80500;
   --color-primary-purple-hover: #7c3aed;
   --color-background: #06070a;
   --color-background-secondary: #0b0d12;
@@ -14,6 +16,23 @@
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+  --color-info: #60a5fa;
+  --color-neutral: #94a3b8;
+  --color-danger: var(--color-error);
+
+  /* Constructor accents */
+  --team-ferrari: #e11d48;
+  --team-mercedes: #14b8a6;
+  --team-red-bull: #3b82f6;
+  --team-mclaren: #f97316;
+  --team-aston-martin: #22c55e;
+  --team-williams: #38bdf8;
+  --team-alpine: #60a5fa;
+  --team-rb: #6366f1;
+  --team-kick-sauber: #84cc16;
+  --team-haas: #e2e8f0;
+  --team-audi: #ef4444;
+  --team-cadillac: #e5e7eb;
 
   /* Typography */
   --font-family-base: Inter, Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -47,6 +66,7 @@
   --line-height-display: 4.5rem;
 
   /* Spacing */
+  --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
@@ -58,6 +78,7 @@
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
+  --radius-panel: 0.5rem;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 20%);

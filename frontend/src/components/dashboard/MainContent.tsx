@@ -33,10 +33,12 @@ type PlaybackSpeed = 0.5 | 1 | 2 | 4
 
 interface MainContentProps {
   activeView: DashboardView
+  initialCircuitName: string | null
+  initialDriverAbbreviation: string | null
   onEngineeringRailChange: (state: EngineeringRailState) => void
 }
 
-export default function MainContent({ activeView, onEngineeringRailChange }: MainContentProps): ReactNode {
+export default function MainContent({ activeView, initialCircuitName, initialDriverAbbreviation, onEngineeringRailChange }: MainContentProps): ReactNode {
   const discovery = useSessionDiscovery()
   const secondaryDiscovery = useSessionDiscovery('secondary')
   const telemetry = useComparisonTelemetry()
@@ -51,6 +53,8 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
   const [selectedCornerNumber, setSelectedCornerNumber] = useState<number | null>(null)
   const animationFrameRef = useRef<number | null>(null)
   const lastFrameTimeRef = useRef<number | null>(null)
+  const launchDriverRef = useRef(initialDriverAbbreviation?.toUpperCase() ?? null)
+  const launchCircuitRef = useRef(initialCircuitName)
   const selectedDriver = discovery.drivers.find(
     (driver) => driver.abbreviation === discovery.selection.driver,
   )
@@ -61,6 +65,51 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
   const selectedSecondaryLap = secondaryDiscovery.laps.find(
     (lap) => lap.lapNumber === secondaryDiscovery.selection.lap,
   )
+
+  useEffect(() => {
+    launchDriverRef.current = initialDriverAbbreviation?.toUpperCase() ?? null
+  }, [initialDriverAbbreviation])
+
+  useEffect(() => {
+    launchCircuitRef.current = initialCircuitName
+  }, [initialCircuitName])
+
+  useEffect(() => {
+    const driverAbbreviation = launchDriverRef.current
+    const circuitName = launchCircuitRef.current
+    if (!driverAbbreviation && !circuitName) return
+
+    if (discovery.selection.season === null && discovery.seasons.length) {
+      discovery.selectSeason(Math.max(...discovery.seasons.map((season) => season.year)))
+      return
+    }
+    if (discovery.selection.event === null && discovery.events.length) {
+      const matchingEvents = circuitName
+        ? discovery.events.filter((event) => event.eventName.toLowerCase().includes(circuitName.toLowerCase().replace(' grand prix', '')))
+        : discovery.events
+      const latestEvent = [...matchingEvents].sort((left, right) => (right.date ?? '').localeCompare(left.date ?? ''))[0]
+      if (!latestEvent) {
+        launchCircuitRef.current = null
+        return
+      }
+      discovery.selectEvent(latestEvent.eventName)
+      return
+    }
+    if (discovery.selection.session === null && discovery.sessions.length) {
+      const latestSession = [...discovery.sessions].sort((left, right) => (right.date ?? '').localeCompare(left.date ?? ''))[0]
+      discovery.selectSession(latestSession.sessionName)
+      return
+    }
+    if (circuitName && discovery.selection.session !== null) {
+      launchCircuitRef.current = null
+      return
+    }
+    if (discovery.selection.session !== null && !discovery.loading.drivers && discovery.drivers.length) {
+      const driver = discovery.drivers.find((candidate) => candidate.abbreviation === driverAbbreviation)
+      if (driver) discovery.selectDriver(driver.abbreviation)
+      launchDriverRef.current = null
+    }
+  }, [discovery])
   const selectedCorner = useMemo(
     () => corners.data?.corners.find((corner) => corner.cornerNumber === selectedCornerNumber),
     [corners.data?.corners, selectedCornerNumber],
@@ -236,7 +285,7 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
 
   return (
     <>
-      <TopBar exportControl={<ExportButton reportState={reportState} />} />
+      <TopBar exportControl={<ExportButton reportState={reportState} activeView={activeView} />} />
       <main className="min-w-0 overflow-y-auto px-[var(--space-md)] py-[var(--space-md)] sm:px-[var(--space-lg)] sm:py-[var(--space-lg)] lg:px-[var(--space-xl)] lg:py-[var(--space-xl)]">
         <div className="grid gap-[var(--space-md)] lg:grid-cols-12">
           {activeView === 'dashboard' && <SessionSelector discovery={discovery} secondaryDiscovery={secondaryDiscovery} />}
@@ -292,6 +341,7 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
         />}
         {activeView === 'telemetry' && <>
         <DriverHUD
+          driver={selectedDriver}
           telemetry={telemetry.primaryTelemetry}
           selectedTelemetryIndex={selectedTelemetryIndex}
         />
@@ -299,6 +349,7 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
           selection={discovery.selection}
           driver={selectedDriver}
           lap={selectedLap}
+          corners={corners.data?.corners}
           telemetry={telemetry.primaryTelemetry}
           secondaryTelemetry={telemetry.secondaryTelemetry}
           comparisonEnabled={telemetry.comparisonEnabled}
@@ -325,7 +376,7 @@ export default function MainContent({ activeView, onEngineeringRailChange }: Mai
             </div>
             <div className="mt-[var(--space-lg)] border-t border-[var(--color-border)] pt-[var(--space-lg)]">
               <p className="text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">Export the current loaded workspace state without requesting additional data.</p>
-              <div className="mt-[var(--space-md)]"><ExportButton reportState={reportState} /></div>
+              <div className="mt-[var(--space-md)]"><ExportButton reportState={reportState} activeView={activeView} /></div>
             </div>
           </section>
         )}

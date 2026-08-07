@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import DriverIdentity from '@/components/dashboard/DriverIdentity'
 import type { Driver, Lap } from '@/types/discovery'
 import type { TelemetryModel } from '@/types/telemetry'
 
@@ -21,9 +22,7 @@ interface DriverSummaryCardProps {
 }
 
 function parseLapTime(lapTime: string | null | undefined): number | null {
-  if (!lapTime) {
-    return null
-  }
+  if (!lapTime) return null
 
   const [minutes, seconds] = lapTime.split(':')
   const numericMinutes = Number(minutes)
@@ -35,10 +34,11 @@ function parseLapTime(lapTime: string | null | undefined): number | null {
 
 function DriverSummaryCard({ label, driver, lap, telemetry }: DriverSummaryCardProps): ReactNode {
   return (
-    <section className="border border-[var(--color-border)] p-[var(--space-sm)]">
+    <section className="min-w-0 border border-[var(--color-border)] p-[var(--space-md)]">
       <p className="[font-family:var(--font-family-mono)] text-[var(--font-size-caption)] uppercase tracking-[0.1em] text-[var(--color-primary-purple)]">{label}</p>
-      <p className="mt-[var(--space-sm)] truncate text-[var(--font-size-small)] text-[var(--color-text-primary)]">{driver?.fullName ?? 'Awaiting selection'}</p>
-      <p className="mt-1 truncate [font-family:var(--font-family-mono)] text-[var(--font-size-caption)] uppercase tracking-[0.08em] text-[var(--color-text-muted)]">{driver?.teamName ?? '—'}</p>
+      <div className="mt-[var(--space-md)]">
+        <DriverIdentity driver={driver} />
+      </div>
       <dl className="mt-[var(--space-md)] grid grid-cols-2 gap-x-[var(--space-sm)] gap-y-2 border-t border-[var(--color-border)] pt-[var(--space-sm)] [font-family:var(--font-family-mono)] text-[var(--font-size-caption)]">
         <div><dt className="uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Lap</dt><dd className="mt-1 text-[var(--color-text-primary)]">{lap?.lapNumber ?? '—'}</dd></div>
         <div><dt className="uppercase tracking-[0.08em] text-[var(--color-text-muted)]">Time</dt><dd className="mt-1 text-[var(--color-text-primary)]">{lap?.lapTime ?? '—'}</dd></div>

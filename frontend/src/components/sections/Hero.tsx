@@ -32,30 +32,31 @@ export default function Hero(): ReactNode {
 
       <Container className="absolute inset-x-0 bottom-1/4 z-10">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-[var(--space-md)] text-[var(--font-size-small)] font-[var(--font-weight-medium)] uppercase tracking-[0.12em] text-[var(--color-primary-purple)]">
-            RaceCraft
+          <p className="mb-[var(--space-md)] text-[var(--font-size-small)] font-[var(--font-weight-medium)] uppercase tracking-[0.12em] text-[var(--color-f1-red)]">
+            RaceCraft / Formula One Engineering
           </p>
 
           <h1 className="text-[length:var(--font-size-display)] leading-[var(--line-height-display)] tracking-[-0.03em]">
-            Think Like an Engineer.
+            Formula One Telemetry.<br />Reimagined.
           </h1>
 
           <p className="mx-auto mt-[var(--space-lg)] max-w-xl text-[var(--font-size-body-large)] leading-[var(--line-height-body-large)] text-[var(--color-text-secondary)]">
-            Explore Formula 1 telemetry with the clarity and precision of a modern race engineering workspace.
+            A focused race-engineering workspace for turning every lap, corner, and signal into clear performance context.
           </p>
 
           <div className="mt-[var(--space-xl)] flex flex-wrap justify-center gap-[var(--space-md)]">
             <Link to="/dashboard">
-              <Button size="lg">
-                Explore Platform
+              <Button size="lg" className="border-[var(--color-f1-red)] bg-[var(--color-f1-red)] hover:border-[var(--color-f1-red-hover)] hover:bg-[var(--color-f1-red-hover)]">
+                Launch Workspace
               </Button>
             </Link>
 
-            <Link to="/dashboard">
+            <Link to="/drivers">
               <Button size="lg" variant="secondary">
-                View Telemetry
+                Explore Drivers
               </Button>
             </Link>
+            <Link to="/circuits"><Button size="lg" variant="ghost">Explore Circuits</Button></Link>
           </div>
         </div>
       </Container>

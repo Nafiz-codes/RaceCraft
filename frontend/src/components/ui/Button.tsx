@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost'
-type ButtonSize = 'sm' | 'md' | 'lg'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'icon'
+type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
@@ -18,12 +18,17 @@ const variantClasses: Record<ButtonVariant, string> = {
     'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface-hover)]',
   ghost:
     'border-transparent bg-transparent text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]',
+  danger:
+    'border-[var(--color-danger)] bg-transparent text-[var(--color-danger)] hover:bg-[var(--color-danger)] hover:text-[var(--color-text-primary)]',
+  icon:
+    'border-[var(--color-border)] bg-[var(--color-surface)] px-0 text-[var(--color-text-secondary)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
   sm: 'min-h-8 px-[var(--space-sm)] text-[var(--font-size-small)]',
   md: 'min-h-10 px-[var(--space-md)] text-[var(--font-size-body)]',
   lg: 'min-h-12 px-[var(--space-lg)] text-[var(--font-size-body-large)]',
+  icon: 'size-10 px-0 text-[var(--font-size-body)]',
 }
 
 export default function Button({

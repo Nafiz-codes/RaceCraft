@@ -2,9 +2,7 @@ import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import Navbar from '@/components/layout/Navbar'
 import Hero from '@/components/sections/Hero'
-import TelemetryPreview from '@/components/sections/TelemetryPreview'
-import DriverComparison from '@/components/sections/DriverComparison'
-import Features from '@/components/sections/Features'
+import LandingShowcase from '@/components/sections/LandingShowcase'
 import type { ReactNode } from 'react'
 
 export default function LandingLayout(): ReactNode {
@@ -15,11 +13,7 @@ export default function LandingLayout(): ReactNode {
       <main>
         <Hero />
 
-        <TelemetryPreview />
-
-        <DriverComparison />
-
-        <Features />
+        <LandingShowcase />
       </main>
 
       <footer className="border-t border-[var(--color-border)]">
@@ -29,7 +23,7 @@ export default function LandingLayout(): ReactNode {
               <div className="max-w-sm">
                 <a
                   href="#hero"
-                  className="text-[var(--font-size-heading-5)] font-[var(--font-weight-bold)] tracking-[-0.03em] text-[var(--color-text-primary)] hover:text-[var(--color-primary-purple)] focus-visible:rounded-[var(--radius-sm)]"
+                  className="text-[var(--font-size-heading-5)] font-[var(--font-weight-bold)] tracking-[-0.03em] text-[var(--color-text-primary)] hover:text-[var(--color-f1-red)] focus-visible:rounded-[var(--radius-sm)]"
                 >
                   RaceCraft
                 </a>
@@ -41,31 +35,31 @@ export default function LandingLayout(): ReactNode {
               <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-[var(--space-md)] sm:grid-cols-3">
                 <a
                   href="#hero"
-                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 >
                   Home
                 </a>
                 <a
                   href="#drivers"
-                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 >
                   Drivers
                 </a>
                 <a
                   href="#circuits"
-                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 >
                   Circuits
                 </a>
                 <a
                   href="#telemetry-preview"
-                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 >
                   Telemetry
                 </a>
                 <a
                   href="#about"
-                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                  className="text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:text-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 >
                   About
                 </a>

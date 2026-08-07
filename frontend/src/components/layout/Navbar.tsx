@@ -56,7 +56,7 @@ export default function Navbar(): ReactNode {
               <a
                 key={label}
                 href={href}
-                className="border-b border-transparent py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-primary-purple)] hover:text-[var(--color-text-primary)] active:border-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                className="border-b border-transparent py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:text-[var(--color-text-primary)] active:border-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
               >
                 {label}
               </a>
@@ -101,7 +101,7 @@ export default function Navbar(): ReactNode {
               <a
                 key={label}
                 href={href}
-                className="border-l-2 border-transparent px-[var(--space-md)] py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-primary-purple)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)] active:border-[var(--color-primary-purple)] active:text-[var(--color-primary-purple)]"
+                className="border-l-2 border-transparent px-[var(--space-md)] py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)] active:border-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {label}

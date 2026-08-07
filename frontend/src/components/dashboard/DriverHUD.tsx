@@ -1,8 +1,11 @@
 import { useMemo, type ReactNode } from 'react'
 
+import DriverIdentity from '@/components/dashboard/DriverIdentity'
+import type { Driver } from '@/types/discovery'
 import type { TelemetryModel } from '@/types/telemetry'
 
 interface DriverHUDProps {
+  driver: Driver | undefined
   telemetry: TelemetryModel[] | undefined
   selectedTelemetryIndex: number
 }
@@ -24,28 +27,34 @@ function HudMetric({ label, value }: { label: string; value: string }): ReactNod
   )
 }
 
-export default function DriverHUD({ telemetry, selectedTelemetryIndex }: DriverHUDProps): ReactNode {
+export default function DriverHUD({ driver, telemetry, selectedTelemetryIndex }: DriverHUDProps): ReactNode {
   const activeSample = useMemo(
     () => telemetry?.[selectedTelemetryIndex],
     [selectedTelemetryIndex, telemetry],
   )
 
   let content: ReactNode = (
-    <p className="text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
-      Select a driver lap to load live telemetry values.
-    </p>
+    <div className="space-y-[var(--space-lg)]">
+      <DriverIdentity driver={driver} variant="compact" />
+      <p className="text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
+        Select a driver lap to load live telemetry values.
+      </p>
+    </div>
   )
 
   if (activeSample) {
     content = (
-      <dl className="grid grid-cols-2 border border-[var(--color-border)] sm:grid-cols-3 xl:grid-cols-6">
+      <div className="space-y-[var(--space-md)]">
+        <DriverIdentity driver={driver} variant="compact" />
+        <dl className="grid grid-cols-2 border border-[var(--color-border)] sm:grid-cols-3 xl:grid-cols-6">
         <HudMetric label="Speed" value={`${formatNumber(activeSample.speed)} km/h`} />
         <HudMetric label="RPM" value={formatNumber(activeSample.rpm)} />
         <HudMetric label="Gear" value={String(activeSample.gear)} />
         <HudMetric label="Throttle" value={`${formatNumber(activeSample.throttle)}%`} />
         <HudMetric label="Brake" value={activeSample.brake ? 'ON' : 'OFF'} />
         <HudMetric label="DRS" value={activeSample.drs >= 10 ? 'OPEN' : 'CLOSED'} />
-      </dl>
+        </dl>
+      </div>
     )
   }
 

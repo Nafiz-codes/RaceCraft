@@ -139,14 +139,10 @@ export default function CircuitMap({
             )
           })}
           {selectedSample && (
-            <path
-              d="M 6 0 L -4 -4 L -4 4 Z"
-              transform={`translate(${xScale(selectedSample.x)},${yScale(selectedSample.y)}) rotate(${headingAngle})`}
-              fill="var(--color-primary-purple)"
-              stroke="var(--color-background)"
-              strokeWidth="1.5"
-              vectorEffect="non-scaling-stroke"
-            />
+            <g transform={`translate(${xScale(selectedSample.x)},${yScale(selectedSample.y)}) rotate(${headingAngle})`}>
+              <circle r="12" fill="var(--color-primary-purple)" opacity="0.3" className="rc-live-marker-pulse" />
+              <path d="M 6 0 L -4 -4 L -4 4 Z" fill="var(--color-primary-purple)" stroke="var(--color-background)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+            </g>
           )}
         </svg>
       )}

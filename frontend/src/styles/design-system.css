@@ -1,0 +1,211 @@
+@layer components {
+  /* Typography */
+  .rc-type-display {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-display);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.03em;
+    line-height: var(--line-height-display);
+  }
+
+  .rc-type-page-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading-2);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+    line-height: var(--line-height-heading-2);
+  }
+
+  .rc-type-section-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading-4);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.02em;
+    line-height: var(--line-height-heading-4);
+  }
+
+  .rc-type-card-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading-5);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading-5);
+  }
+
+  .rc-type-body {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .rc-type-caption,
+  .rc-metric-label {
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    letter-spacing: 0.1em;
+    line-height: var(--line-height-caption);
+    text-transform: uppercase;
+  }
+
+  .rc-metric-value {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-heading-4);
+    font-weight: var(--font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--line-height-heading-4);
+  }
+
+  /* Shared surfaces */
+  .rc-panel,
+  .rc-dashboard-card,
+  .rc-floating-card,
+  .rc-modal-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-panel);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+  }
+
+  .rc-panel,
+  .rc-dashboard-card {
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rc-floating-card {
+    padding: var(--space-md);
+    box-shadow: var(--shadow-md);
+  }
+
+  .rc-modal-card {
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .rc-card {
+    min-width: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: var(--space-md);
+    transition: var(--transition-interactive);
+  }
+
+  .rc-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-hover);
+    background: var(--color-surface-hover);
+  }
+
+  .rc-metric {
+    min-width: 0;
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-md);
+  }
+
+  .rc-section {
+    padding-block: var(--space-2xl);
+  }
+
+  /* Buttons */
+  .rc-button {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    padding-inline: var(--space-md);
+    font-weight: var(--font-weight-medium);
+    transition: var(--transition-interactive);
+  }
+
+  .rc-button:focus-visible,
+  .rc-icon-button:focus-visible {
+    outline: 2px solid var(--color-primary-purple);
+    outline-offset: 2px;
+  }
+
+  .rc-button:disabled,
+  .rc-icon-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .rc-button--primary { border-color: var(--color-primary-purple); background: var(--color-primary-purple); color: var(--color-text-primary); }
+  .rc-button--primary:hover { border-color: var(--color-primary-purple-hover); background: var(--color-primary-purple-hover); }
+  .rc-button--secondary { border-color: var(--color-border); background: var(--color-surface); color: var(--color-text-primary); }
+  .rc-button--secondary:hover { border-color: var(--color-border-hover); background: var(--color-surface-hover); }
+  .rc-button--ghost { color: var(--color-text-secondary); }
+  .rc-button--ghost:hover { background: var(--color-surface-hover); color: var(--color-text-primary); }
+  .rc-button--danger { border-color: var(--color-danger); background: transparent; color: var(--color-danger); }
+  .rc-button--danger:hover { background: var(--color-danger); color: var(--color-text-primary); }
+
+  .rc-button:active,
+  .rc-icon-button:active { transform: translateY(1px); }
+
+  .rc-icon-button {
+    display: inline-grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    transition: var(--transition-interactive);
+  }
+
+  .rc-icon-button:hover { border-color: var(--color-border-hover); background: var(--color-surface-hover); color: var(--color-text-primary); }
+
+  /* Tags and status */
+  .rc-tag,
+  .rc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    letter-spacing: 0.08em;
+    line-height: var(--line-height-caption);
+    text-transform: uppercase;
+  }
+
+  .rc-badge { border-color: transparent; background: var(--color-surface); }
+  .rc-status-success { color: var(--color-success); }
+  .rc-status-warning { color: var(--color-warning); }
+  .rc-status-danger { color: var(--color-danger); }
+  .rc-status-info { color: var(--color-info); }
+  .rc-status-neutral { color: var(--color-neutral); }
+
+  .rc-empty-state {
+    display: grid;
+    min-height: 10rem;
+    place-items: center;
+    border: 1px dashed var(--color-border-hover);
+    padding: var(--space-xl);
+    color: var(--color-text-secondary);
+    text-align: center;
+  }
+
+  .rc-skeleton {
+    animation: rc-skeleton 1.6s ease-in-out infinite;
+    background: var(--color-surface);
+  }
+
+  .rc-live-marker-pulse { animation: rc-marker-pulse 1.4s ease-in-out infinite; }
+
+  @keyframes rc-skeleton {
+    50% { opacity: 0.55; }
+  }
+
+  @keyframes rc-marker-pulse {
+    50% { opacity: 0.18; }
+  }
+}
