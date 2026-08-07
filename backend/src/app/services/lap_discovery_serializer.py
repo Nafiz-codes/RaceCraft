@@ -16,6 +16,9 @@ class LapSerializer:
         return LapModel(
             lapNumber=_required_lap_number(record),
             lapTime=_format_lap_time(record.get("LapTime")),
+            sector1Time=_format_lap_time(record.get("Sector1Time")),
+            sector2Time=_format_lap_time(record.get("Sector2Time")),
+            sector3Time=_format_lap_time(record.get("Sector3Time")),
             tyreCompound=_optional_text(record.get("Compound")),
             tyreLife=_optional_integer(record.get("TyreLife")),
             isPersonalBest=_boolean(record.get("IsPersonalBest")),

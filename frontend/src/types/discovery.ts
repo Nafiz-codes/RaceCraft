@@ -30,6 +30,9 @@ export interface Driver {
 export interface Lap {
   lapNumber: number
   lapTime: string | null
+  sector1Time: string | null
+  sector2Time: string | null
+  sector3Time: string | null
   tyreCompound: string | null
   tyreLife: number | null
   isPersonalBest: boolean

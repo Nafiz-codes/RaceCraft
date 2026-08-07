@@ -1,38 +1,47 @@
 import type { ReactNode } from 'react'
 
 import CircuitMap from '@/components/dashboard/CircuitMap'
-import useCircuit, { type CircuitSelection } from '@/hooks/useCircuit'
+import type { CircuitPayload } from '@/types/circuit'
 import type { TelemetryModel } from '@/types/telemetry'
+import type { CircuitCorner } from '@/types/corner'
 
 interface CircuitViewProps {
-  selection: CircuitSelection
+  circuit: CircuitPayload | null
+  circuitError: string | null
+  isCircuitLoading: boolean
+  corners: CircuitCorner[] | undefined
   telemetry: TelemetryModel[] | undefined
   selectedTelemetryIndex: number
+  selectedCornerNumber: number | null
 }
 
 export default function CircuitView({
-  selection,
+  circuit,
+  circuitError,
+  isCircuitLoading,
+  corners,
   telemetry,
   selectedTelemetryIndex,
+  selectedCornerNumber,
 }: CircuitViewProps): ReactNode {
-  const { data, error, isLoading } = useCircuit(selection)
-
   let content: ReactNode = (
     <p className="text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
       Select a session to load circuit geometry.
     </p>
   )
 
-  if (isLoading) {
+  if (isCircuitLoading) {
     content = <p className="text-[var(--font-size-small)] text-[var(--color-text-secondary)]">Loading circuit...</p>
-  } else if (error) {
-    content = <p className="text-[var(--font-size-small)] text-[var(--color-error)]">{error}</p>
-  } else if (data && data.points.length > 0) {
+  } else if (circuitError) {
+    content = <p className="text-[var(--font-size-small)] text-[var(--color-error)]">{circuitError}</p>
+  } else if (circuit && circuit.points.length > 0) {
     content = (
       <CircuitMap
-        points={data.points}
+        points={circuit.points}
+        corners={corners}
         telemetry={telemetry}
         selectedTelemetryIndex={selectedTelemetryIndex}
+        selectedCornerNumber={selectedCornerNumber}
       />
     )
   }

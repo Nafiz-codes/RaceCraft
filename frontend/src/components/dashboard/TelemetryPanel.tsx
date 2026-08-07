@@ -2,9 +2,12 @@ import { useState, type ReactNode } from 'react'
 
 import TelemetryChart, { type TelemetryChannel } from '@/components/dashboard/TelemetryChart'
 import DeltaTimeChart from '@/components/dashboard/DeltaTimeChart'
+import PlaybackControls from '@/components/dashboard/PlaybackControls'
 import { type TelemetrySelection } from '@/hooks/useTelemetry'
 import type { Driver, Lap } from '@/types/discovery'
 import type { TelemetryModel } from '@/types/telemetry'
+
+type PlaybackSpeed = 0.5 | 1 | 2 | 4
 
 interface TelemetryPanelProps {
   selection: TelemetrySelection
@@ -19,6 +22,13 @@ interface TelemetryPanelProps {
   isLoading: boolean
   selectedTelemetryIndex: number
   onTelemetryIndexChange: (index: number) => void
+  isPlaying: boolean
+  playbackSpeed: PlaybackSpeed
+  onPlayPause: () => void
+  onStepBack: () => void
+  onStepForward: () => void
+  onRestart: () => void
+  onPlaybackSpeedChange: (speed: PlaybackSpeed) => void
 }
 
 const CHANNELS: TelemetryChannel[] = ['speed', 'throttle', 'brake', 'rpm', 'gear', 'drs']
@@ -40,6 +50,13 @@ export default function TelemetryPanel({
   isLoading,
   selectedTelemetryIndex,
   onTelemetryIndexChange,
+  isPlaying,
+  playbackSpeed,
+  onPlayPause,
+  onStepBack,
+  onStepForward,
+  onRestart,
+  onPlaybackSpeedChange,
 }: TelemetryPanelProps): ReactNode {
   const [channel, setChannel] = useState<TelemetryChannel>('speed')
 
@@ -140,6 +157,17 @@ export default function TelemetryPanel({
             aria-label="Telemetry position"
           />
         </label>
+        <PlaybackControls
+          isPlaying={isPlaying}
+          playbackSpeed={playbackSpeed}
+          currentIndex={selectedTelemetryIndex}
+          sampleCount={telemetry.length}
+          onPlayPause={onPlayPause}
+          onStepBack={onStepBack}
+          onStepForward={onStepForward}
+          onRestart={onRestart}
+          onPlaybackSpeedChange={onPlaybackSpeedChange}
+        />
       </>
     )
   }

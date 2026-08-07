@@ -5,6 +5,7 @@ from functools import lru_cache
 from app.repositories.fastf1_repository import FastF1Repository
 from app.services.circuit_information_service import CircuitInformationService
 from app.services.circuit_service import CircuitService
+from app.services.corner_service import CornerService
 from app.services.driver_discovery_service import DriverDiscoveryService
 from app.services.fastf1_service import FastF1Service
 from app.services.lap_discovery_service import LapDiscoveryService
@@ -29,6 +30,12 @@ def get_circuit_service() -> CircuitService:
 def get_circuit_information_service() -> CircuitInformationService:
     """Build the circuit information service from the shared FastF1 dependency."""
     return CircuitInformationService(fastf1_service=get_fastf1_service())
+
+
+@lru_cache(maxsize=1)
+def get_corner_service() -> CornerService:
+    """Build the corner service from the shared FastF1 dependency."""
+    return CornerService(fastf1_service=get_fastf1_service())
 
 
 @lru_cache(maxsize=1)

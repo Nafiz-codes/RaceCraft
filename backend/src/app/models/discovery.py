@@ -73,6 +73,9 @@ class LapModel(BaseModel):
 
     lapNumber: int = Field(ge=1)
     lapTime: str | None = None
+    sector1Time: str | None = None
+    sector2Time: str | None = None
+    sector3Time: str | None = None
     tyreCompound: str | None = None
     tyreLife: int | None = Field(default=None, ge=0)
     isPersonalBest: bool
@@ -158,3 +161,20 @@ class CircuitInformationPayload(BaseModel):
     """Circuit information for one selected Formula 1 session."""
 
     circuit: CircuitInformationModel
+
+
+class CornerModel(BaseModel):
+    """One official FastF1 circuit corner reference."""
+
+    cornerNumber: int = Field(ge=1)
+    cornerLetter: str | None = None
+    cornerAngle: float | None = None
+    x: float
+    y: float
+    distance: float | None = Field(default=None, ge=0)
+
+
+class CornersPayload(BaseModel):
+    """Official circuit corners for a selected Formula 1 session."""
+
+    corners: list[CornerModel]

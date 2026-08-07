@@ -142,3 +142,14 @@ class FastF1Repository:
             "SessionName": fastf1_session.name,
             "EventDate": fastf1_session.event.get("EventDate"),
         }
+
+    def load_circuit_corner_records(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> list[dict[str, object]]:
+        """Load the provider's official circuit corner metadata."""
+        fastf1_session = self.load_session(season, event, session)
+        fastf1_session.load(laps=True, telemetry=True, weather=False, messages=False)
+        return fastf1_session.get_circuit_info().corners.to_dict(orient="records")

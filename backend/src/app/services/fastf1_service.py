@@ -124,6 +124,18 @@ class FastF1Service:
         self._validate_identifier(session, "session")
         return self._repository.load_circuit_information_record(season, event, session)
 
+    def load_circuit_corner_records(
+        self,
+        season: int,
+        event: EventIdentifier,
+        session: SessionIdentifier,
+    ) -> list[dict[str, object]]:
+        """Load provider circuit corner metadata without exposing FastF1 objects."""
+        self._validate_season(season)
+        self._validate_identifier(event, "event")
+        self._validate_identifier(session, "session")
+        return self._repository.load_circuit_corner_records(season, event, session)
+
     @staticmethod
     def _validate_season(season: int) -> None:
         if season < 1950:
