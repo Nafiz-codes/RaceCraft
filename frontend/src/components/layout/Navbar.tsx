@@ -1,5 +1,6 @@
 import Button from '@/components/ui/Button'
 import Container from '@/components/ui/Container'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 
@@ -7,7 +8,7 @@ const navigationLinks = [
   { href: '#hero', label: 'Home' },
   { href: '#drivers', label: 'Drivers' },
   { href: '#circuits', label: 'Circuits' },
-  { href: '#telemetry-preview', label: 'Telemetry' },
+  { href: '/dashboard', label: 'Telemetry' },
   { href: '#about', label: 'About' },
 ]
 
@@ -64,12 +65,7 @@ export default function Navbar(): ReactNode {
           </div>
 
           <div className="hidden lg:block">
-            <Button
-              className="tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]"
-              size="sm"
-            >
-              Launch Dashboard
-            </Button>
+            <Link to="/dashboard"><Button className="tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]" size="sm">Launch Dashboard</Button></Link>
           </div>
 
           <Button
@@ -107,12 +103,7 @@ export default function Navbar(): ReactNode {
                 {label}
               </a>
             ))}
-            <Button
-              className="mt-[var(--space-sm)] w-full tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]"
-              size="sm"
-            >
-              Launch Dashboard
-            </Button>
+            <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}><Button className="mt-[var(--space-sm)] w-full tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]" size="sm">Launch Dashboard</Button></Link>
           </nav>
         </div>
       </Container>
