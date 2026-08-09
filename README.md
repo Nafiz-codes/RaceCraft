@@ -1,145 +1,353 @@
 # RaceCraft
 
-RaceCraft is a Formula One engineering workspace for exploring real session data through synchronized telemetry, circuit geometry, lap analysis, driver comparison, and browser-generated engineering reports.
+> **Formula One telemetry analysis, rebuilt as an engineering workspace.**
 
-## Highlights
+RaceCraft is a Formula One telemetry analysis platform designed to help explore lap performance through the lens of a race engineer.
 
-- Formula One session discovery powered by FastF1
-- Synchronized telemetry chart, circuit marker, scrubber, playback controls, and engineering rail
-- Driver and circuit explorers backed by centralized registries
-- Lap, sector, corner, braking, weather, and circuit-information workspaces
-- Comparison-ready primary and secondary selections
-- Local PDF, Markdown, and TXT engineering report exports
-- React 19 / TypeScript / Vite frontend and layered FastAPI backend
+Instead of presenting telemetry as a collection of disconnected charts, RaceCraft brings **drivers, circuits, lap telemetry, sectors, corners, comparisons, and engineering reports** into one focused workspace.
 
-## Repository structure
+## Live
 
-```text
-RaceCraft/
-├── frontend/    # React, TypeScript, Vite, Tailwind CSS, D3
-├── backend/     # FastAPI, FastF1, repository/service/API architecture
-├── docs/        # Product, architecture, UI/UX, and engineering standards
-├── design/      # Approved visual references
-└── assets/      # Project assets
-```
+**[Open RaceCraft](https://race-craft-ebon.vercel.app/)**
 
-## Prerequisites
+## What RaceCraft does
 
-- Node.js 20+
-- npm 10+
-- Python 3.12+
+RaceCraft turns raw F1 session data into an interactive engineering workflow.
 
-## Run locally
+- **Telemetry Analysis** — inspect speed, throttle, brake, gear, RPM, DRS, and lap-distance data.
+- **Driver Comparison** — compare two drivers under the same session/lap context.
+- **Circuit Analysis** — explore circuit geometry and live car position.
+- **Lap Analysis** — inspect individual lap performance and deltas.
+- **Sector Analysis** — compare sector-level performance.
+- **Corner Analysis** — investigate corner-by-corner behavior.
+- **Brake Comparison** — identify braking differences between drivers.
+- **Engineering Insights** — surface useful performance observations from the active workspace.
+- **Session Explorer** — move from season and event selection to the session and lap that matter.
+- **Engineering Reports** — export the active workspace as PDF, Markdown, or TXT.
 
-### 1. Start the backend
+## The idea
 
-```powershell
-cd backend
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
-racecraft-api
-```
+Most telemetry tools expose a large amount of data but leave the user responsible for turning that data into an engineering story.
 
-The API runs on `http://127.0.0.1:8000` by default.
+RaceCraft is built around a different idea:
 
-Copy the environment template when you need custom configuration:
+> **Give the engineer the context first, then let the telemetry explain the lap.**
 
-```powershell
-Copy-Item .env.example .env
-```
+The interface therefore combines:
 
-### 2. Start the frontend
+**Session → Driver → Lap → Telemetry → Circuit → Sector → Corner → Insight**
 
-In another terminal:
+rather than treating each analysis as an isolated page.
 
-```powershell
-cd frontend
-npm install
-$env:VITE_API_BASE_URL="http://127.0.0.1:8000/api/v1"
-npm run dev
-```
+## Key features
 
-Open the Vite URL printed in the terminal, usually `http://localhost:5173`.
+### Interactive telemetry
 
-## Available routes
+The telemetry workspace synchronizes:
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Premium RaceCraft landing page |
-| `/drivers` | Driver Explorer |
-| `/circuits` | Circuit Explorer |
-| `/dashboard` | Engineering workspace |
+- distance
+- speed
+- throttle
+- brake
+- gear
+- RPM
+- DRS
+- lap position
+- circuit position
 
-## API resources
+A shared engineering timeline keeps the active telemetry point synchronized across the dashboard.
 
-All API routes are versioned under `/api/v1`.
+### Driver comparison
 
-```text
-GET /seasons
-GET /seasons/{season}/events
-GET /seasons/{season}/events/{event}/sessions
-GET /seasons/{season}/events/{event}/sessions/{session}/drivers
-GET /seasons/{season}/events/{event}/sessions/{session}/drivers/{driver}/laps
-GET /seasons/{season}/events/{event}/sessions/{session}/drivers/{driver}/laps/{lap}/telemetry
-GET /seasons/{season}/events/{event}/sessions/{session}/circuit
-```
+Compare two drivers using the same engineering context, including:
 
-Additional circuit metadata, weather, and corner resources are available through the dashboard’s existing API layer.
+- lap time
+- telemetry traces
+- tyre compound
+- sample count
+- lap delta
+- circuit position
 
-## Quality checks
+### Circuit intelligence
+
+RaceCraft maintains a centralized circuit registry covering the current 2026 Formula One calendar.
+
+The circuit explorer provides:
+
+- circuit search
+- country filtering
+- circuit metadata
+- circuit layout assets
+- direct analysis entry points
+
+### Driver registry
+
+The driver explorer provides the current 2026 grid with:
+
+- driver identity
+- number
+- abbreviation
+- nationality
+- constructor
+- driver imagery
+- direct analysis entry points
+
+### Engineering playback
+
+Telemetry can be explored through a synchronized engineering timeline with:
+
+- shared distance cursor
+- current corner
+- current sector
+- speed
+- throttle
+- brake
+- gear
+- distance
+- braking events
+- DRS events
+- gear-shift markers
+- full-throttle markers
+
+The timeline reuses the existing telemetry state rather than maintaining a separate playback system.
+
+### Reports
+
+The active workspace can be exported locally in three formats:
+
+- **PDF** — monochrome engineering report
+- **Markdown** — structured engineering report
+- **TXT** — plain engineering log
+
+Report generation happens in the browser and does not require an additional backend request.
+
+## Tech stack
 
 ### Frontend
 
-```powershell
-cd frontend
-npm run lint
-npm run build
-```
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Recharts
+- Spline
 
 ### Backend
 
-```powershell
+- Python
+- FastAPI
+- FastF1
+- Pandas
+
+### Deployment
+
+- Vercel
+- Frontend and backend deployed as separate Vercel projects
+
+## Project structure
+
+```text
+RaceCraft/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── data/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   ├── styles/
+│   │   └── utils/
+│   ├── assets/
+│   │   └── drivers/
+│   └── ...
+│
+└── backend/
+    ├── api/
+    ├── src/
+    │   └── app/
+    └── ...
+```
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20+
+- Python 3.11+
+- Git
+
+### 1. Clone
+
+```bash
+git clone https://github.com/Nafiz-codes/RaceCraft.git
+cd RaceCraft
+```
+
+### 2. Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The Vite development server will normally be available at:
+
+```text
+http://localhost:5173
+```
+
+### 3. Backend
+
+In another terminal:
+
+```bash
 cd backend
-ruff check .
-ruff format --check .
-mypy
+python -m venv .venv
 ```
 
-## Deploying to Vercel
+Activate the environment.
 
-Deploy the frontend and backend as two Vercel projects from this repository:
+**Windows:**
 
-- Frontend project root: `frontend`
-- Backend project root: `backend`
+```bash
+.venv\Scripts\activate
+```
 
-Set the frontend environment variable:
+**macOS/Linux:**
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI using the project's configured entrypoint.
+
+The API documentation is available at:
 
 ```text
-VITE_API_BASE_URL=https://your-api-domain.vercel.app/api/v1
+http://localhost:8000/docs
 ```
 
-Set backend production variables:
+### Environment variables
+
+Configure the backend using the variables documented in:
 
 ```text
-RACECRAFT_ENVIRONMENT=production
-RACECRAFT_DEBUG=false
-RACECRAFT_FASTF1_CACHE_DIRECTORY=/tmp/racecraft-fastf1
-RACECRAFT_CORS_ORIGINS=https://your-frontend-domain.vercel.app
+backend/.env.example
 ```
 
-The FastF1 cache is ephemeral on serverless infrastructure and is recreated when a function cold-starts.
+For the frontend, configure the API base URL through:
 
-## Documentation
+```text
+VITE_API_BASE_URL
+```
 
-Read the project standards before contributing:
+Example:
 
-- `docs/PRD.md`
-- `docs/ARCHITECTURE.md`
-- `docs/UI_UX_SPEC.md`
-- `docs/DEVELOPMENT_STANDARDS.md`
-- `docs/TECH_STACK.md`
+```text
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+```
 
-## License
+## Production architecture
 
-See [LICENSE](LICENSE).
+RaceCraft is deployed as two services from the same repository:
+
+```text
+                   ┌─────────────────────┐
+                   │      RaceCraft      │
+                   │      Frontend       │
+                   │   React + Vite      │
+                   └──────────┬──────────┘
+                              │
+                              │ HTTPS / REST
+                              ▼
+                   ┌─────────────────────┐
+                   │      RaceCraft      │
+                   │       Backend       │
+                   │ FastAPI + FastF1    │
+                   └─────────────────────┘
+```
+
+The frontend is responsible for the interactive engineering workspace, while the backend handles data access and telemetry processing.
+
+## Design philosophy
+
+RaceCraft follows a few principles:
+
+### Engineering over decoration
+
+The UI should feel like an engineering tool rather than a generic dashboard.
+
+### Context before complexity
+
+Telemetry becomes useful when the user knows:
+
+- who is driving
+- where they are
+- which lap they are looking at
+- which session they are analyzing
+- what the comparison is
+
+### One source of truth
+
+Playback, charts, circuit position, and engineering markers should derive from the same active telemetry state whenever possible.
+
+### Progressive disclosure
+
+Not every piece of telemetry needs to be visible at every moment. Analysis views should expose the information relevant to the task instead of overwhelming the engineer.
+
+## Current status
+
+RaceCraft is currently deployed and usable as a live portfolio project.
+
+The current release focuses on:
+
+- 2026 F1 driver and circuit registry
+- telemetry analysis
+- driver comparison
+- circuit visualization
+- sector and corner analysis
+- engineering playback
+- engineering report exports
+- production deployment
+
+## Roadmap
+
+Potential future work includes:
+
+- richer telemetry overlays
+- advanced lap-delta analysis
+- automated engineering recommendations
+- tyre degradation analysis
+- weather/performance correlation
+- stint analysis
+- race-strategy analysis
+- historical season exploration
+- more advanced telemetry-derived metrics
+
+## Why I built it
+
+RaceCraft sits at the intersection of several things I care about:
+
+**Formula One + data analysis + software engineering + visualization.**
+
+The goal was not simply to make another F1 statistics website, but to explore what a telemetry product could feel like if it were designed around the workflow of an engineer.
+
+## Author
+
+**Nafiz Shahriar**
+
+Computer Science student • AI/ML enthusiast • Formula One & data analysis enthusiast
+
+- GitHub: [@Nafiz-codes](https://github.com/Nafiz-codes)
+
+---
+
+<p align="center">
+  <strong>Think Like an Engineer.</strong>
+</p>
