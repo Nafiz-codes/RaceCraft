@@ -10,6 +10,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingLayout />} />
+        <Route path="/telemetry" element={<LandingLayout />} />
+        <Route path="/about" element={<LandingLayout />} />
         <Route path="/dashboard" element={<DashboardLayout />} />
         <Route path="/drivers" element={<DriversExplorerPage />} />
         <Route path="/circuits" element={<CircuitsExplorerPage />} />

@@ -1,11 +1,25 @@
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import Navbar from '@/components/layout/Navbar'
+import RaceCraftLogo from '@/components/branding/RaceCraftLogo'
 import Hero from '@/components/sections/Hero'
 import LandingShowcase from '@/components/sections/LandingShowcase'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function LandingLayout(): ReactNode {
+  const { pathname } = useLocation()
+
+  const destination = pathname === '/telemetry' ? 'workspace-preview' : pathname === '/about' ? 'about' : 'hero'
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(destination)?.scrollIntoView({ block: 'start' })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [destination])
+
   return (
     <>
       <Navbar />
@@ -21,12 +35,9 @@ export default function LandingLayout(): ReactNode {
           <Container>
             <div className="grid gap-[var(--space-xl)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
               <div className="max-w-sm">
-                <a
-                  href="#hero"
-                  className="text-[var(--font-size-heading-5)] font-[var(--font-weight-bold)] tracking-[-0.03em] text-[var(--color-text-primary)] hover:text-[var(--color-f1-red)] focus-visible:rounded-[var(--radius-sm)]"
-                >
-                  RaceCraft
-                </a>
+                <Link to="/" aria-label="RaceCraft home" className="inline-flex">
+                  <RaceCraftLogo className="h-9 w-[10.5rem]" />
+                </Link>
                 <p className="mt-[var(--space-md)] text-[var(--font-size-small)] leading-[var(--line-height-small)] text-[var(--color-text-secondary)]">
                   Formula One telemetry analysis for drivers, engineers, and curious minds.
                 </p>

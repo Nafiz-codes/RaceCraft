@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import RaceCraftLogo from '@/components/branding/RaceCraftLogo'
 
 export type DashboardView =
   | 'dashboard'
@@ -38,9 +39,7 @@ export default function Sidebar({ activeView, onViewChange }: SidebarProps): Rea
   return (
     <aside className="hidden min-h-svh border-r border-[var(--color-border)] bg-[var(--color-background-secondary)] p-[var(--space-md)] lg:sticky lg:top-0 lg:flex lg:h-svh lg:flex-col">
       <div className="mb-[var(--space-xl)] px-[var(--space-md)] py-[var(--space-lg)]">
-        <p className="text-[var(--font-size-heading-4)] font-[var(--font-weight-semibold)] tracking-[-0.03em] text-[var(--color-text-primary)]">
-          SYSTEM
-        </p>
+        <RaceCraftLogo className="h-8 w-[9.4rem]" />
         <p className="mt-[var(--space-sm)] [font-family:var(--font-family-mono)] text-[var(--font-size-caption)] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
           Analysis Core
         </p>

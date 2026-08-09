@@ -2,6 +2,7 @@ import { useMemo, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import DriverIdentity from '@/components/dashboard/DriverIdentity'
+import Navbar from '@/components/layout/Navbar'
 import Button from '@/components/ui/Button'
 import { driverRegistry } from '@/data/driverRegistry'
 
@@ -21,7 +22,9 @@ export default function DriversExplorerPage(): ReactNode {
   }, [query, team])
 
   return (
-    <main className="min-h-svh bg-[var(--color-background)] px-[var(--space-md)] py-[var(--space-xl)] text-[var(--color-text-primary)] sm:px-[var(--space-xl)] lg:px-[var(--space-2xl)]">
+    <>
+      <Navbar />
+      <main className="min-h-svh bg-[var(--color-background)] px-[var(--space-md)] py-[var(--space-xl)] text-[var(--color-text-primary)] sm:px-[var(--space-xl)] lg:px-[var(--space-2xl)]">
       <div className="mx-auto max-w-7xl">
         <header className="border-l-2 border-[var(--color-primary-purple)] pl-[var(--space-md)]">
           <p className="rc-type-caption text-[var(--color-primary-purple)]">RaceCraft Registry</p>
@@ -60,6 +63,7 @@ export default function DriversExplorerPage(): ReactNode {
           ))}
         </section>
       </div>
-    </main>
+      </main>
+    </>
   )
 }

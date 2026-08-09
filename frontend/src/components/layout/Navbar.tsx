@@ -1,20 +1,23 @@
 import Button from '@/components/ui/Button'
+import RaceCraftLogo from '@/components/branding/RaceCraftLogo'
 import Container from '@/components/ui/Container'
-import { Link } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 
 const navigationLinks = [
-  { href: '#hero', label: 'Home' },
-  { href: '#drivers', label: 'Drivers' },
-  { href: '#circuits', label: 'Circuits' },
-  { href: '/dashboard', label: 'Telemetry' },
-  { href: '#about', label: 'About' },
+  { to: '/', label: 'Home' },
+  { to: '/drivers', label: 'Drivers' },
+  { to: '/circuits', label: 'Circuits' },
+  { to: '/telemetry', label: 'Telemetry' },
+  { to: '/about', label: 'About' },
 ]
 
 export default function Navbar(): ReactNode {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
+  const isDashboard = location.pathname === '/dashboard'
 
   useEffect(() => {
     const updateScrolledState = (): void => {
@@ -45,27 +48,25 @@ export default function Navbar(): ReactNode {
     <header className={headerClasses}>
       <Container>
         <nav className="flex min-h-[4.5rem] items-center justify-between" aria-label="Primary navigation">
-          <a
-            href="#hero"
-            className="text-[var(--font-size-body-large)] font-[var(--font-weight-bold)] tracking-[-0.03em] text-[var(--color-text-primary)]"
-          >
-            RaceCraft
-          </a>
+          <Link to="/" aria-label="RaceCraft home" className="inline-flex shrink-0 items-center">
+            <RaceCraftLogo className="h-8 w-[9.4rem]" />
+          </Link>
 
           <div className="hidden items-center gap-[var(--space-xl)] lg:flex">
-            {navigationLinks.map(({ href, label }) => (
-              <a
+            {navigationLinks.map(({ to, label }) => (
+              <NavLink
                 key={label}
-                href={href}
-                className="border-b border-transparent py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:text-[var(--color-text-primary)] active:border-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
+                to={to}
+                end={to === '/'}
+                className={({ isActive }) => `border-b py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] transition-[border-color,color] duration-[var(--duration-fast)] ${isActive ? 'border-[var(--color-f1-red)] text-[var(--color-text-primary)]' : 'border-transparent text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:text-[var(--color-text-primary)]'}`}
               >
                 {label}
-              </a>
+              </NavLink>
             ))}
           </div>
 
           <div className="hidden lg:block">
-            <Link to="/dashboard"><Button className="tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]" size="sm">Launch Dashboard</Button></Link>
+            <Link to="/dashboard" aria-current={isDashboard ? 'page' : undefined}><Button className={`tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)] ${isDashboard ? 'border-[var(--color-f1-red)] bg-[var(--color-f1-red)]' : ''}`} size="sm">Launch Dashboard</Button></Link>
           </div>
 
           <Button
@@ -93,17 +94,18 @@ export default function Navbar(): ReactNode {
             aria-label="Mobile navigation"
             className="flex flex-col gap-[var(--space-sm)] border-t border-[var(--color-border)] bg-[var(--color-background)] py-[var(--space-lg)]"
           >
-            {navigationLinks.map(({ href, label }) => (
-              <a
+            {navigationLinks.map(({ to, label }) => (
+              <NavLink
                 key={label}
-                href={href}
-                className="border-l-2 border-transparent px-[var(--space-md)] py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)] active:border-[var(--color-f1-red)] active:text-[var(--color-f1-red)]"
+                to={to}
+                end={to === '/'}
+                className={({ isActive }) => `border-l-2 px-[var(--space-md)] py-[var(--space-sm)] text-[var(--font-size-caption)] font-[var(--font-weight-medium)] uppercase tracking-[0.1em] transition-[background-color,border-color,color] duration-[var(--duration-fast)] ${isActive ? 'border-[var(--color-f1-red)] bg-[var(--color-surface)] text-[var(--color-text-primary)]' : 'border-transparent text-[var(--color-text-secondary)] hover:border-[var(--color-f1-red)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {label}
-              </a>
+              </NavLink>
             ))}
-            <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}><Button className="mt-[var(--space-sm)] w-full tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)]" size="sm">Launch Dashboard</Button></Link>
+            <Link to="/dashboard" aria-current={isDashboard ? 'page' : undefined} onClick={() => setIsMenuOpen(false)}><Button className={`mt-[var(--space-sm)] w-full tracking-[0.02em] hover:shadow-[var(--shadow-sm)] focus-visible:shadow-[var(--shadow-sm)] ${isDashboard ? 'border-[var(--color-f1-red)] bg-[var(--color-f1-red)]' : ''}`} size="sm">Launch Dashboard</Button></Link>
           </nav>
         </div>
       </Container>
