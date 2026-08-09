@@ -33,7 +33,7 @@ export default function CircuitsExplorerPage(): ReactNode {
             {circuits.map((circuit) => (
               <article key={circuit.id} className="rc-card min-w-0 overflow-hidden">
                 <div className="grid h-40 place-items-center border border-[var(--color-border)] bg-[var(--color-background-secondary)] p-[var(--space-sm)]">
-                  <CircuitPreview circuitName={circuit.name} />
+                  <CircuitPreview circuit={circuit} />
                 </div>
                 <h2 className="rc-type-card-title mt-[var(--space-md)]">{circuit.name}</h2>
                 <p className="mt-[var(--space-xs)] text-[var(--font-size-small)] text-[var(--color-text-secondary)]">{circuit.country} · {circuit.city}</p>
